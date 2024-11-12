@@ -8,18 +8,18 @@ number:
 date:
 consensus: true
 v: 3
-area: Transport
-workgroup: QUIC
+# area: Transport
+# workgroup: QUIC
 keyword:
  - quic
  - extended key update
  - forward secrecy
 venue:
-  group: QUIC
-  type: Working Group
-  mail: quic@ietf.org
-  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
-  github: yaroslavros/quic-extended-key-update
+#  group: QUIC
+#  type: Working Group
+#  mail: quic@ietf.org
+#  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
+  github: "yaroslavros/quic-extended-key-update"
   latest: "https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-extended-key-update.html"
 
 author:
