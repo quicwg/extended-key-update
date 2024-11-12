@@ -2,10 +2,10 @@
 
 This is the working area for the individual Internet-Draft, "Extended Key Update for QUIC".
 
-* [Editor's Copy](https://yaroslavros.github.io/quic-extended-key-update/#go.draft-rosomakho-extended-key-update.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-rosomakho-extended-key-update)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-rosomakho-extended-key-update)
-* [Compare Editor's Copy to Individual Draft](https://yaroslavros.github.io/quic-extended-key-update/#go.draft-rosomakho-extended-key-update.diff)
+* [Editor's Copy](https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-quic-extended-key-update.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-rosomakho-quic-extended-key-update)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-rosomakho-quic-extended-key-update)
+* [Compare Editor's Copy to Individual Draft](https://yaroslavros.github.io/quic-extended-key-update/#go.draft-rosomakho-quic-extended-key-update.diff)
 
 
 ## Contributing
