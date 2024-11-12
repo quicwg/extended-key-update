@@ -19,35 +19,34 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "Extended Key Update for QUIC"
+category: std
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-rosomakho-extended-key-update
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: Transport
+workgroup: QUIC
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - quic
+ - extended key update
+ - forward secrecy
 venue:
-  group: WG
+  group: QUIC
   type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  mail: quic@ietf.org
+  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
+  github: yaroslavros/quic-extended-key-update
+  latest: "https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-extended-key-update.html"
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Yaroslav Rosomakho
+    organization: Zscaler
+    email: yrosomakho@zscaler.com
 
 normative:
 
