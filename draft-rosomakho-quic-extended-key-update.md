@@ -2,7 +2,7 @@
 title: "Extended Key Update for QUIC"
 category: std
 
-docname: draft-rosomakho-extended-key-update-latest
+docname: draft-rosomakho-quic-extended-key-update-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -20,7 +20,7 @@ venue:
 #  mail: quic@ietf.org
 #  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
   github: "yaroslavros/quic-extended-key-update"
-  latest: "https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-extended-key-update.html"
+  latest: "https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-quic-extended-key-update.html"
 
 author:
  -
