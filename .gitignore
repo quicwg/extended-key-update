@@ -17,7 +17,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-rosomakho-extended-key-update.xml
+draft-rosomakho-quic-extended-key-update.xml
 package-lock.json
 report.xml
 !requirements.txt
