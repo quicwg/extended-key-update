@@ -63,7 +63,7 @@ This new TLS capability is particularly valuable in environments where interrupt
 significant disruption. Other encrypted communication protocols, such as IPsec {{?IKEv2=RFC7296}} and SSH {{?SSH-TRANSPORT=RFC4253}},
 include mechanisms for re-exchanging keys without interrupting active sessions. The TLS Extended Key Update specification ensures
 that even in the face of potential key compromise, sensitive data remains protected due to frequent key rotation and the use
-of forward secrecy. 
+of forward secrecy.
 
 This specification extends builds on concepts from {{I-D.ietf-tls-extended-key-update}} and applies them to the QUIC protocol context.
 It thereby replaces the QUIC Key Update mechanism described in {{Section 6 of !QUIC-TLS=RFC9001}}.
