@@ -62,7 +62,7 @@ of the potentially unreliable medium that carries QUIC packets.
 # Extended Key Update Negotiation
 
 QUIC peers negotiate Extended Key Update through the TLS handshake process, as outlined in {{Section 4 of I-D.ietf-tls-extended-key-update}}.
-Extended Key Update MUST NOT be used unless both QUIC peers include the TLS flags extension {{!I-D.ietf-tls-flags}} in the handshake and
+Extended Key Update MUST NOT be used unless both QUIC peers include the TLS flags extension {{!I-D.ietf-tls-tlsflags}} in the handshake and
 set the "Extended_Key_Update" flag.
 
 Once Extended Key Update has been succesfully negotiated, QUIC peers MUST only use the Extended Key Update process defined in this document.
