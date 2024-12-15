@@ -92,7 +92,7 @@ error of type 0x01TBD, equivalent to TLS extended_key_update_required alert.
 # Updating the Traffic Secrets
 
 After sending an ExtendedKeyUpdateResponse with accepted status, the responder derives new packet protection traffic secrets. The responder MUST continue
-using the previous secrets until it has recieved a packet with the Key Phase bit flipped and has successfully unprotected it using the new keys.
+using the previous secrets until it has received a packet with the Key Phase bit flipped and has successfully unprotected it using the new keys.
 
 After recieving and succesfully processing an ExtendedKeyUpdateResponse with accepted status, the initiator derives new packet protection traffic secrets,
 flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator MUST retain the old read secret until
@@ -121,13 +121,14 @@ cause delayed packets to be discarded, which the peer may interpreted as packet 
 ~~~
 {: #fig-extended-key-update title="Extended Key Update Process in QUIC."}
 
-QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages. Endpoints MUST treat the receipt of a TLS NewKeyUpdate message as a connection error
+QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages, defined in {{I-D.ietf-tls-extended-key-update}}, and
+instead relies on the use of the Key Phase bit. Endpoints MUST treat the receipt of a TLS NewKeyUpdate message as a connection error
 of type 0x010a. QUIC endpoints that have agreed to the Extended Key Update process MUST NOT change the Key Phase bit without a succesful exchange of
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a success Extended Key Update exchange MUST be treated as
 a connection error of type KEY_UPDATE_ERROR (0x0e).
 
-The design of the key deriviation function for computing the next generation of secrets is similar to the one described in
-{{Section 6 of I-D.ietf-tls-extended-key-update}}.
+The design of the key derivation function for computing the next generation of secrets is corresponds to the one described in
+{{Section 6 of I-D.ietf-tls-extended-key-update}} with the exception of the use of a different label.
 
 ~~~pseudocode
 sk = HKDF-Extract(Transcript-Hash(ExtendedKeyUpdateRequest,
@@ -142,13 +143,13 @@ The corresponding key and IV are derived from the new secret as defined in {{Sec
 
 # Security Considerations
 
-Since Extended Key Update updates the key schedule, implementations MUST ensure that peers adhere strictly to the process described in this document.
-Packets with higher packet numbers MUST NOT be protected using an older generation of secrets, as this could compromise key synchronization and security.
+This specification describes an update to the key schedule of QUIC. Therefore, implementations MUST ensure that peers adhere strictly to the process
+described in this document. Packets with higher packet numbers MUST NOT be protected using an older generation of secrets, as this could compromise key
+synchronization and security.
 
 As key exchange may be computationally intensive, responders SHOULD consider rate-limiting Extended Key Exchange requests. This can be done by responding
 with retry status as outlined in {{Section 5 of I-D.ietf-tls-extended-key-update}} and terminating connections for initiators that violate the back-off timer.
 This approach helps prevent excessive load on endpoints and mitigates the risk of denial-of-service attacks.
-
 
 # IANA Considerations
 
