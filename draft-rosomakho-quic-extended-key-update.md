@@ -52,7 +52,7 @@ Secure QUIC" specification.
 The QUIC protocol {{!QUIC=RFC9000}} provides a secure, versatile transport for various applications, suitable for long-lived sessions
 in environments like industrial IoT, telecommunication networks or Virtual Private Networks (VPN), as specified in {{?RFC9484}}.
 
-The TLS Extended Key Update {{I-D.ietf-tls-extended-key-update}} introduces a mechanism to enhance the security and flexibility
+The TLS Extended Key Update {{!I-D.ietf-tls-extended-key-update}} introduces a mechanism to enhance the security and flexibility
 of encrypted communication protocols by enabling frequent key updates without requiring a full handshake renegotiation. This
 approach allows applications to refresh their encryption keys more often, improving forward secrecy and reducing the risk of
 key compromise over long-lived connections. By separating key updates from the computationally expensive handshake process,
