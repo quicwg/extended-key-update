@@ -4,8 +4,8 @@
 
 Network Working Group                                       Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Intended status: Standards Track                        13 November 2024
-Expires: 17 May 2025
+Intended status: Standards Track                        15 December 2024
+Expires: 18 June 2025
 
 
                       Extended Key Update for QUIC
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 May 2025.
+   This Internet-Draft will expire on 18 June 2025.
 
 Copyright Notice
 
@@ -112,7 +112,7 @@ Table of Contents
    process, as outlined in Section 4 of
    [I-D.ietf-tls-extended-key-update].  Extended Key Update MUST NOT be
    used unless both QUIC peers include the TLS flags extension
-   [I-D.ietf-tls-flags] in the handshake and set the
+   [I-D.ietf-tls-tlsflags] in the handshake and set the
    "Extended_Key_Update" flag.
 
    Once Extended Key Update has been succesfully negotiated, QUIC peers
@@ -252,8 +252,11 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
               extended-key-update-03>.
 
-   [I-D.ietf-tls-flags]
-              "*** BROKEN REFERENCE ***".
+   [I-D.ietf-tls-tlsflags]
+              Nir, Y., "A Flags Extension for TLS 1.3", Work in
+              Progress, Internet-Draft, draft-ietf-tls-tlsflags-14, 13
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tls-tlsflags-14>.
 
    [QUIC]     Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
