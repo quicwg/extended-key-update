@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-15T01:46:05.866071+00:00",
+  "timestamp": "2024-12-17T01:39:51.522906+00:00",
   "repo": "yaroslavros/quic-extended-key-update",
   "labels": [
     {
@@ -49,6 +49,193 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 4,
+      "id": "I_kwDONOTHKM6jWhbj",
+      "title": "Header protection key",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/issues/4",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We should give a justification for why the header protection key is not updated.\r\n",
+      "createdAt": "2024-12-15T12:19:09Z",
+      "updatedAt": "2024-12-15T12:19:09Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDONOTHKM6jWh4V",
+      "title": " Compromise key synchronization",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/issues/5",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We should provide a description of what exactly is meant with key synchronization in this setence:\r\n\r\n> Packets with higher packet numbers MUST NOT be protected using an older generation of secrets, as this could compromise key synchronization and security.",
+      "createdAt": "2024-12-15T12:20:46Z",
+      "updatedAt": "2024-12-15T12:20:46Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDONOTHKM6FQlQc",
+      "title": "Updates RFC 9000",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/pull/1",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-15T10:58:16Z",
+      "updatedAt": "2024-12-15T10:58:16Z",
+      "baseRepository": "yaroslavros/quic-extended-key-update",
+      "baseRefName": "main",
+      "baseRefOid": "937e472ce49958d3be5eb114de1ddb2ce1070777",
+      "headRepository": "yaroslavros/quic-extended-key-update",
+      "headRefName": "hannestschofenig-patch-1",
+      "headRefOid": "9a3948aad3b02e16bb8717ced13011f788711e74",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDONOTHKM6FQr4k",
+      "title": "Update Abstract and Intro",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/pull/2",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-15T12:10:33Z",
+      "updatedAt": "2024-12-15T12:31:41Z",
+      "baseRepository": "yaroslavros/quic-extended-key-update",
+      "baseRefName": "main",
+      "baseRefOid": "937e472ce49958d3be5eb114de1ddb2ce1070777",
+      "headRepository": "yaroslavros/quic-extended-key-update",
+      "headRefName": "hannestschofenig-patch-2",
+      "headRefOid": "90d1d107bd41e47e72a228c099141dfbf870fea8",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONOTHKM6VSFSS",
+          "commit": {
+            "abbreviatedOid": "daba961"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-12-15T12:31:36Z",
+          "updatedAt": "2024-12-15T12:31:36Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "```suggestion\r\nof forward secrecy.\r\n```",
+              "createdAt": "2024-12-15T12:31:36Z",
+              "updatedAt": "2024-12-15T12:31:37Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDONOTHKM6FQuBl",
+      "title": "Editorial Improvements",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/pull/3",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-15T12:18:25Z",
+      "updatedAt": "2024-12-15T12:18:25Z",
+      "baseRepository": "yaroslavros/quic-extended-key-update",
+      "baseRefName": "main",
+      "baseRefOid": "937e472ce49958d3be5eb114de1ddb2ce1070777",
+      "headRepository": "yaroslavros/quic-extended-key-update",
+      "headRefName": "hannestschofenig-patch-3",
+      "headRefOid": "35e019d7c1669d50821c3f8c0508d12ff3eeb943",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDONOTHKM6FQvEm",
+      "title": "Fixing Reference",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/pull/6",
+      "state": "MERGED",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-15T12:22:20Z",
+      "updatedAt": "2024-12-15T12:27:56Z",
+      "baseRepository": "yaroslavros/quic-extended-key-update",
+      "baseRefName": "main",
+      "baseRefOid": "937e472ce49958d3be5eb114de1ddb2ce1070777",
+      "headRepository": "yaroslavros/quic-extended-key-update",
+      "headRefName": "hannestschofenig-patch-4",
+      "headRefOid": "b301c594fe5e9d2601ae546a22a7f3c4f0b6421e",
+      "closedAt": "2024-12-15T12:27:53Z",
+      "mergedAt": "2024-12-15T12:27:53Z",
+      "mergedBy": "hannestschofenig",
+      "mergeCommit": {
+        "oid": "29534b8b6f3be3f554fff93ebea21957788438b9"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDONOTHKM6FQvs6",
+      "title": "Remark in the terminology section",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/pull/7",
+      "state": "OPEN",
+      "author": "hannestschofenig",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-15T12:24:29Z",
+      "updatedAt": "2024-12-15T12:24:29Z",
+      "baseRepository": "yaroslavros/quic-extended-key-update",
+      "baseRefName": "main",
+      "baseRefOid": "937e472ce49958d3be5eb114de1ddb2ce1070777",
+      "headRepository": "yaroslavros/quic-extended-key-update",
+      "headRefName": "hannestschofenig-patch-5",
+      "headRefOid": "64a845246c22d21b44d025518f3710351c8e128a",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
