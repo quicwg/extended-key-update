@@ -6,11 +6,15 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>Extended Key Update for QUIC</title>
 <meta content="Yaroslav Rosomakho" name="author">
-<meta content="
-       This document specified an Extended Key Update mechanism for the   protocol, building on the
-foundation of the Transport Layer Security (TLS) 1.3 Extended Key Update  .
-This specification replaces QUIC Key Update mechanism described in  . 
-    " name="description">
+<meta content='
+       This document specifies an Extended Key Update mechanism for the QUIC protocol, building on the
+foundation of the TLS Extended Key Update. The TLS Extended Key Update specification enhances the
+TLS protocol by introducing key updates with forward secrecy, eliminating the need to perform a
+full handshake. This feature is particularly beneficial for maintaining security in scenarios
+involving long-lived connections. 
+       This specification replaces the QUIC Key Update mechanism described in the "Using TLS to
+Secure QUIC" specification. 
+    ' name="description">
 <meta content="xml2rfc 3.25.0" name="generator">
 <meta content="quic" name="keyword">
 <meta content="extended key update" name="keyword">
@@ -18,15 +22,15 @@ This specification replaces QUIC Key Update mechanism described in  .
 <meta content="draft-rosomakho-quic-extended-key-update-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.25.0
-    Python 3.12.7
+    Python 3.12.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
     lxml 5.3.0
     platformdirs 4.3.6
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
     setuptools 70.3.0
     wcwidth 0.2.13
@@ -1052,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rosomakho</td>
-<td class="center">Expires 18 June 2025</td>
+<td class="center">Expires 26 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-rosomakho-quic-extended-key-update-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-15" class="published">15 December 2024</time>
+<time datetime="2024-12-23" class="published">23 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-18">18 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-26">26 June 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,9 +1087,13 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">Extended Key Update for QUIC</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document specified an Extended Key Update mechanism for the <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span> protocol, building on the
-foundation of the Transport Layer Security (TLS) 1.3 Extended Key Update <span>[<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span>.
-This specification replaces QUIC Key Update mechanism described in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document specifies an Extended Key Update mechanism for the QUIC protocol, building on the
+foundation of the TLS Extended Key Update. The TLS Extended Key Update specification enhances the
+TLS protocol by introducing key updates with forward secrecy, eliminating the need to perform a
+full handshake. This feature is particularly beneficial for maintaining security in scenarios
+involving long-lived connections.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">This specification replaces the QUIC Key Update mechanism described in the "Using TLS to
+Secure QUIC" specification.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1117,7 +1125,7 @@ This specification replaces QUIC Key Update mechanism described in <span><a href
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 18 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 26 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1193,15 +1201,21 @@ This specification replaces QUIC Key Update mechanism described in <span><a href
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">The <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span> protocol provides a secure, versatile transport for various applications, suitable for long-lived sessions
-in environments like industrial IoT, telecommunication networks or Virtual Private Networks (VPN), as specified in <span>[<a href="#RFC9484" class="cite xref">RFC9484</a>]</span>.
-In such settings, session interruptions to perform a fresh key exchange and update the master secret can be highly disruptive.
-Other encrypted communication protocols, such as IPSec <span>[<a href="#IKEv2" class="cite xref">IKEv2</a>]</span> and SSH <span>[<a href="#SSH-TRANSPORT" class="cite xref">SSH-TRANSPORT</a>]</span>,
-include mechanisms for re-exchanging keys without interrupting active sessions.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">The Extended Key Update feature for <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span> expands the protocol applicability to environments requiring periodic key
-re-exchanges, facilitates migration from other secure transport mechanisms, and enhances overall security.
-This specification builds on concepts from <span>[<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span>, while adapting to the unique challenges
-of the potentially unreliable medium that carries QUIC packets.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-1">The QUIC protocol <span>[<a href="#QUIC" class="cite xref">QUIC</a>]</span> provides a secure, versatile transport for various applications, suitable for long-lived sessions
+in environments like industrial IoT, telecommunication networks or Virtual Private Networks (VPN), as specified in <span>[<a href="#RFC9484" class="cite xref">RFC9484</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">The TLS Extended Key Update <span>[<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span> introduces a mechanism to enhance the security and flexibility
+of encrypted communication protocols by enabling frequent key updates without requiring a full handshake renegotiation. This
+approach allows applications to refresh their encryption keys more often, improving forward secrecy and reducing the risk of
+key compromise over long-lived connections. By separating key updates from the computationally expensive handshake process,
+the specification provides a lightweight method for maintaining robust encryption in scenarios where connections need to
+remain secure for extended periods.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This new TLS capability is particularly valuable in environments where interruptions to perform a full key exchange would cause
+significant disruption. Other encrypted communication protocols, such as IPsec <span>[<a href="#IKEv2" class="cite xref">IKEv2</a>]</span> and SSH <span>[<a href="#SSH-TRANSPORT" class="cite xref">SSH-TRANSPORT</a>]</span>,
+include mechanisms for re-exchanging keys without interrupting active sessions. The TLS Extended Key Update specification ensures
+that even in the face of potential key compromise, sensitive data remains protected due to frequent key rotation and the use
+of forward secrecy.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This specification extends builds on concepts from <span>[<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span> and applies them to the QUIC protocol context.
+It thereby replaces the QUIC Key Update mechanism described in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
