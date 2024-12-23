@@ -72,6 +72,8 @@ It thereby replaces the QUIC Key Update mechanism described in {{Section 6 of !Q
 
 {::boilerplate bcp14-tagged}
 
+Readers are assumed to be familiar with {{!I-D.ietf-tls-extended-key-update}}.
+
 # Extended Key Update Negotiation
 
 QUIC peers negotiate Extended Key Update through the TLS handshake process, as outlined in {{Section 4 of I-D.ietf-tls-extended-key-update}}.
@@ -161,7 +163,6 @@ Packets with higher packet numbers MUST NOT be protected using an older generati
 As key exchange may be computationally intensive, responders SHOULD consider rate-limiting Extended Key Exchange requests. This can be done by responding
 with retry status as outlined in {{Section 5 of I-D.ietf-tls-extended-key-update}} and terminating connections for initiators that violate the back-off timer.
 This approach helps prevent excessive load on endpoints and mitigates the risk of denial-of-service attacks.
-
 
 # IANA Considerations
 
