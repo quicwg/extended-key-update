@@ -36,24 +36,37 @@ informative:
 
 --- abstract
 
-This document specified an Extended Key Update mechanism for the {{!QUIC=RFC9000}} protocol, building on the
-foundation of the Transport Layer Security (TLS) 1.3 Extended Key Update {{!I-D.ietf-tls-extended-key-update}}.
-This specification replaces QUIC Key Update mechanism described in {{Section 6 of !QUIC-TLS=RFC9001}}.
+This document specifies an Extended Key Update mechanism for the QUIC protocol, building on the
+foundation of the TLS Extended Key Update. The TLS Extended Key Update specification enhances the
+TLS protocol by introducing key updates with forward secrecy, eliminating the need to perform a
+full handshake. This feature is particularly beneficial for maintaining security in scenarios
+involving long-lived connections.
+
+This specification replaces the QUIC Key Update mechanism described in the "Using TLS to
+Secure QUIC" specification.
 
 --- middle
 
 # Introduction
 
-The {{QUIC}} protocol provides a secure, versatile transport for various applications, suitable for long-lived sessions
+The QUIC protocol {{!QUIC=RFC9000}} provides a secure, versatile transport for various applications, suitable for long-lived sessions
 in environments like industrial IoT, telecommunication networks or Virtual Private Networks (VPN), as specified in {{?RFC9484}}.
-In such settings, session interruptions to perform a fresh key exchange and update the master secret can be highly disruptive.
-Other encrypted communication protocols, such as IPSec {{?IKEv2=RFC7296}} and SSH {{?SSH-TRANSPORT=RFC4253}},
-include mechanisms for re-exchanging keys without interrupting active sessions.
 
-The Extended Key Update feature for {{QUIC}} expands the protocol applicability to environments requiring periodic key
-re-exchanges, facilitates migration from other secure transport mechanisms, and enhances overall security.
-This specification builds on concepts from {{I-D.ietf-tls-extended-key-update}}, while adapting to the unique challenges
-of the potentially unreliable medium that carries QUIC packets.
+The TLS Extended Key Update {{!I-D.ietf-tls-extended-key-update}} introduces a mechanism to enhance the security and flexibility
+of encrypted communication protocols by enabling frequent key updates without requiring a full handshake renegotiation. This
+approach allows applications to refresh their encryption keys more often, improving forward secrecy and reducing the risk of
+key compromise over long-lived connections. By separating key updates from the computationally expensive handshake process,
+the specification provides a lightweight method for maintaining robust encryption in scenarios where connections need to
+remain secure for extended periods.
+
+This new TLS capability is particularly valuable in environments where interruptions to perform a full key exchange would cause
+significant disruption. Other encrypted communication protocols, such as IPsec {{?IKEv2=RFC7296}} and SSH {{?SSH-TRANSPORT=RFC4253}},
+include mechanisms for re-exchanging keys without interrupting active sessions. The TLS Extended Key Update specification ensures
+that even in the face of potential key compromise, sensitive data remains protected due to frequent key rotation and the use
+of forward secrecy.
+
+This specification extends builds on concepts from {{I-D.ietf-tls-extended-key-update}} and applies them to the QUIC protocol context.
+It thereby replaces the QUIC Key Update mechanism described in {{Section 6 of !QUIC-TLS=RFC9001}}.
 
 # Conventions and Definitions
 
