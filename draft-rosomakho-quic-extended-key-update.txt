@@ -124,6 +124,9 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+   Readers are assumed to be familiar with
+   [I-D.ietf-tls-extended-key-update].
+
 3.  Extended Key Update Negotiation
 
    QUIC peers negotiate Extended Key Update through the TLS handshake
