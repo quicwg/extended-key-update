@@ -6,6 +6,8 @@ docname: draft-rosomakho-quic-extended-key-update-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
+category: std
+updates: 9001
 consensus: true
 v: 3
 # area: Transport
