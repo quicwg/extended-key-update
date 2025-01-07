@@ -30,6 +30,13 @@ author:
     fullname: Yaroslav Rosomakho
     organization: Zscaler
     email: yrosomakho@zscaler.com
+ -
+    ins: H. Tschofenig
+    name: Hannes Tschofenig
+    abbrev: H-BRS
+    organization: University of Applied Sciences Bonn-Rhein-Sieg
+    country: Germany
+    email: Hannes.Tschofenig@gmx.net
 
 normative:
 
