@@ -4,9 +4,9 @@
 
 Network Working Group                                       Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Updates: 9001 (if approved)                               7 January 2025
-Intended status: Standards Track                                        
-Expires: 11 July 2025
+Updates: 9001 (if approved)                                H. Tschofenig
+Intended status: Standards Track                                   H-BRS
+Expires: 11 July 2025                                     7 January 2025
 
 
                       Extended Key Update for QUIC
@@ -14,11 +14,16 @@ Expires: 11 July 2025
 
 Abstract
 
-   This document specified an Extended Key Update mechanism for the
-   [QUIC] protocol, building on the foundation of the Transport Layer
-   Security (TLS) 1.3 Extended Key Update
-   [I-D.ietf-tls-extended-key-update].  This specification replaces QUIC
-   Key Update mechanism described in Section 6 of [QUIC-TLS].
+   This document specifies an Extended Key Update mechanism for the QUIC
+   protocol, building on the foundation of the TLS Extended Key Update.
+   The TLS Extended Key Update specification enhances the TLS protocol
+   by introducing key updates with forward secrecy, eliminating the need
+   to perform a full handshake.  This feature is particularly beneficial
+   for maintaining security in scenarios involving long-lived
+   connections.
+
+   This specification replaces the QUIC Key Update mechanism described
+   in the "Using TLS to Secure QUIC" specification.
 
 About This Document
 
@@ -77,27 +82,40 @@ Table of Contents
      8.1.  Normative References
      8.2.  Informative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
-   The [QUIC] protocol provides a secure, versatile transport for
+   The QUIC protocol [QUIC] provides a secure, versatile transport for
    various applications, suitable for long-lived sessions in
    environments like industrial IoT, telecommunication networks or
-   Virtual Private Networks (VPN), as specified in [RFC9484].  In such
-   settings, session interruptions to perform a fresh key exchange and
-   update the master secret can be highly disruptive.  Other encrypted
-   communication protocols, such as IPSec [IKEv2] and SSH
-   [SSH-TRANSPORT], include mechanisms for re-exchanging keys without
-   interrupting active sessions.
+   Virtual Private Networks (VPN), as specified in [RFC9484].
 
-   The Extended Key Update feature for [QUIC] expands the protocol
-   applicability to environments requiring periodic key re-exchanges,
-   facilitates migration from other secure transport mechanisms, and
-   enhances overall security.  This specification builds on concepts
-   from [I-D.ietf-tls-extended-key-update], while adapting to the unique
-   challenges of the potentially unreliable medium that carries QUIC
-   packets.
+   The TLS Extended Key Update [I-D.ietf-tls-extended-key-update]
+   introduces a mechanism to enhance the security and flexibility of
+   encrypted communication protocols by enabling frequent key updates
+   without requiring a full handshake renegotiation.  This approach
+   allows applications to refresh their encryption keys more often,
+   improving forward secrecy and reducing the risk of key compromise
+   over long-lived connections.  By separating key updates from the
+   computationally expensive handshake process, the specification
+   provides a lightweight method for maintaining robust encryption in
+   scenarios where connections need to remain secure for extended
+   periods.
+
+   This new TLS capability is particularly valuable in environments
+   where interruptions to perform a full key exchange would cause
+   significant disruption.  Other encrypted communication protocols,
+   such as IPsec [IKEv2] and SSH [SSH-TRANSPORT], include mechanisms for
+   re-exchanging keys without interrupting active sessions.  The TLS
+   Extended Key Update specification ensures that even in the face of
+   potential key compromise, sensitive data remains protected due to
+   frequent key rotation and the use of forward secrecy.
+
+   This specification extends builds on concepts from
+   [I-D.ietf-tls-extended-key-update] and applies them to the QUIC
+   protocol context.  It thereby replaces the QUIC Key Update mechanism
+   described in Section 6 of [QUIC-TLS].
 
 2.  Conventions and Definitions
 
@@ -107,13 +125,16 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+   Readers are assumed to be familiar with
+   [I-D.ietf-tls-extended-key-update].
+
 3.  Extended Key Update Negotiation
 
    QUIC peers negotiate Extended Key Update through the TLS handshake
    process, as outlined in Section 4 of
    [I-D.ietf-tls-extended-key-update].  Extended Key Update MUST NOT be
    used unless both QUIC peers include the TLS flags extension
-   [I-D.ietf-tls-flags] in the handshake and set the
+   [I-D.ietf-tls-tlsflags] in the handshake and set the
    "Extended_Key_Update" flag.
 
    Once Extended Key Update has been succesfully negotiated, QUIC peers
@@ -162,7 +183,7 @@ Table of Contents
    After sending an ExtendedKeyUpdateResponse with accepted status, the
    responder derives new packet protection traffic secrets.  The
    responder MUST continue using the previous secrets until it has
-   recieved a packet with the Key Phase bit flipped and has successfully
+   received a packet with the Key Phase bit flipped and has successfully
    unprotected it using the new keys.
 
    After recieving and succesfully processing an
@@ -198,18 +219,20 @@ Table of Contents
 
                Figure 1: Extended Key Update Process in QUIC.
 
-   QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages.
-   Endpoints MUST treat the receipt of a TLS NewKeyUpdate message as a
-   connection error of type 0x010a.  QUIC endpoints that have agreed to
-   the Extended Key Update process MUST NOT change the Key Phase bit
-   without a succesful exchange of Extended Key Update TLS messages.
-   Receiving a packet with the Key Phase bit changed without a success
-   Extended Key Update exchange MUST be treated as a connection error of
-   type KEY_UPDATE_ERROR (0x0e).
+   QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages,
+   defined in [I-D.ietf-tls-extended-key-update], and instead relies on
+   the use of the Key Phase bit.  Endpoints MUST treat the receipt of a
+   TLS NewKeyUpdate message as a connection error of type 0x010a.  QUIC
+   endpoints that have agreed to the Extended Key Update process MUST
+   NOT change the Key Phase bit without a succesful exchange of Extended
+   Key Update TLS messages.  Receiving a packet with the Key Phase bit
+   changed without a success Extended Key Update exchange MUST be
+   treated as a connection error of type KEY_UPDATE_ERROR (0x0e).
 
-   The design of the key deriviation function for computing the next
-   generation of secrets is similar to the one described in Section 6 of
-   [I-D.ietf-tls-extended-key-update].
+   The design of the key derivation function for computing the next
+   generation of secrets is corresponds to the one described in
+   Section 6 of [I-D.ietf-tls-extended-key-update] with the exception of
+   the use of a different label.
 
    sk = HKDF-Extract(Transcript-Hash(ExtendedKeyUpdateRequest,
                                      ExtendedKeyUpdateResponse), secret)
@@ -223,11 +246,11 @@ Table of Contents
 
 6.  Security Considerations
 
-   Since Extended Key Update updates the key schedule, implementations
-   MUST ensure that peers adhere strictly to the process described in
-   this document.  Packets with higher packet numbers MUST NOT be
-   protected using an older generation of secrets, as this could
-   compromise key synchronization and security.
+   This specification describes an update to the key schedule of QUIC.
+   Therefore, implementations MUST ensure that peers adhere strictly to
+   the process described in this document.  Packets with higher packet
+   numbers MUST NOT be protected using an older generation of secrets,
+   as this could compromise key synchronization and security.
 
    As key exchange may be computationally intensive, responders SHOULD
    consider rate-limiting Extended Key Exchange requests.  This can be
@@ -253,8 +276,11 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
               extended-key-update-03>.
 
-   [I-D.ietf-tls-flags]
-              "*** BROKEN REFERENCE ***".
+   [I-D.ietf-tls-tlsflags]
+              Nir, Y., "A Flags Extension for TLS 1.3", Work in
+              Progress, Internet-Draft, draft-ietf-tls-tlsflags-14, 13
+              September 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-tls-tlsflags-14>.
 
    [QUIC]     Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
@@ -296,8 +322,14 @@ Acknowledgments
    We would like to thank Martin Thomson and Sean Turner for their early
    review of this design and their invaluable feedback.
 
-Author's Address
+Authors' Addresses
 
    Yaroslav Rosomakho
    Zscaler
    Email: yrosomakho@zscaler.com
+
+
+   Hannes Tschofenig
+   University of Applied Sciences Bonn-Rhein-Sieg
+   Germany
+   Email: Hannes.Tschofenig@gmx.net
