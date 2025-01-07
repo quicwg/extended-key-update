@@ -4,8 +4,8 @@
 
 Network Working Group                                       Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Intended status: Standards Track                        23 December 2024
-Expires: 26 June 2025
+Intended status: Standards Track                          7 January 2025
+Expires: 11 July 2025
 
 
                       Extended Key Update for QUIC
@@ -52,11 +52,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 June 2025.
+   This Internet-Draft will expire on 11 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -182,7 +182,7 @@ Table of Contents
    After sending an ExtendedKeyUpdateResponse with accepted status, the
    responder derives new packet protection traffic secrets.  The
    responder MUST continue using the previous secrets until it has
-   recieved a packet with the Key Phase bit flipped and has successfully
+   received a packet with the Key Phase bit flipped and has successfully
    unprotected it using the new keys.
 
    After recieving and succesfully processing an
@@ -218,18 +218,20 @@ Table of Contents
 
                Figure 1: Extended Key Update Process in QUIC.
 
-   QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages.
-   Endpoints MUST treat the receipt of a TLS NewKeyUpdate message as a
-   connection error of type 0x010a.  QUIC endpoints that have agreed to
-   the Extended Key Update process MUST NOT change the Key Phase bit
-   without a succesful exchange of Extended Key Update TLS messages.
-   Receiving a packet with the Key Phase bit changed without a success
-   Extended Key Update exchange MUST be treated as a connection error of
-   type KEY_UPDATE_ERROR (0x0e).
+   QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages,
+   defined in [I-D.ietf-tls-extended-key-update], and instead relies on
+   the use of the Key Phase bit.  Endpoints MUST treat the receipt of a
+   TLS NewKeyUpdate message as a connection error of type 0x010a.  QUIC
+   endpoints that have agreed to the Extended Key Update process MUST
+   NOT change the Key Phase bit without a succesful exchange of Extended
+   Key Update TLS messages.  Receiving a packet with the Key Phase bit
+   changed without a success Extended Key Update exchange MUST be
+   treated as a connection error of type KEY_UPDATE_ERROR (0x0e).
 
-   The design of the key deriviation function for computing the next
-   generation of secrets is similar to the one described in Section 6 of
-   [I-D.ietf-tls-extended-key-update].
+   The design of the key derivation function for computing the next
+   generation of secrets is corresponds to the one described in
+   Section 6 of [I-D.ietf-tls-extended-key-update] with the exception of
+   the use of a different label.
 
    sk = HKDF-Extract(Transcript-Hash(ExtendedKeyUpdateRequest,
                                      ExtendedKeyUpdateResponse), secret)
@@ -243,11 +245,11 @@ Table of Contents
 
 6.  Security Considerations
 
-   Since Extended Key Update updates the key schedule, implementations
-   MUST ensure that peers adhere strictly to the process described in
-   this document.  Packets with higher packet numbers MUST NOT be
-   protected using an older generation of secrets, as this could
-   compromise key synchronization and security.
+   This specification describes an update to the key schedule of QUIC.
+   Therefore, implementations MUST ensure that peers adhere strictly to
+   the process described in this document.  Packets with higher packet
+   numbers MUST NOT be protected using an older generation of secrets,
+   as this could compromise key synchronization and security.
 
    As key exchange may be computationally intensive, responders SHOULD
    consider rate-limiting Extended Key Exchange requests.  This can be
