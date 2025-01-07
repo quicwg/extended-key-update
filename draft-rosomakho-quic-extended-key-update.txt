@@ -4,9 +4,9 @@
 
 Network Working Group                                       Y. Rosomakho
 Internet-Draft                                                   Zscaler
-Updates: 9001 (if approved)                               7 January 2025
-Intended status: Standards Track                                        
-Expires: 11 July 2025
+Updates: 9001 (if approved)                                H. Tschofenig
+Intended status: Standards Track                                   H-BRS
+Expires: 11 July 2025                                     7 January 2025
 
 
                       Extended Key Update for QUIC
@@ -82,7 +82,7 @@ Table of Contents
      8.1.  Normative References
      8.2.  Informative References
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -322,8 +322,14 @@ Acknowledgments
    We would like to thank Martin Thomson and Sean Turner for their early
    review of this design and their invaluable feedback.
 
-Author's Address
+Authors' Addresses
 
    Yaroslav Rosomakho
    Zscaler
    Email: yrosomakho@zscaler.com
+
+
+   Hannes Tschofenig
+   University of Applied Sciences Bonn-Rhein-Sieg
+   Germany
+   Email: Hannes.Tschofenig@gmx.net
