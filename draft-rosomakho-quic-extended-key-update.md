@@ -74,7 +74,7 @@ include mechanisms for re-exchanging keys without interrupting active sessions. 
 that even in the face of potential key compromise, sensitive data remains protected due to frequent key rotation and the use
 of forward secrecy.
 
-This specification extends builds on concepts from {{I-D.ietf-tls-extended-key-update}} and applies them to the QUIC protocol context.
+This specification builds on concepts from {{I-D.ietf-tls-extended-key-update}} and applies them to the QUIC protocol context.
 It thereby replaces the QUIC Key Update mechanism described in {{Section 6 of !QUIC-TLS=RFC9001}}.
 
 # Conventions and Definitions
