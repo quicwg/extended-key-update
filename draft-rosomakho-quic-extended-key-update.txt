@@ -6,7 +6,7 @@ Network Working Group                                       Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Updates: 9001 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 11 July 2025                                     7 January 2025
+Expires: 27 August 2025                                 23 February 2025
 
 
                       Extended Key Update for QUIC
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 July 2025.
+   This Internet-Draft will expire on 27 August 2025.
 
 Copyright Notice
 
@@ -112,7 +112,7 @@ Table of Contents
    potential key compromise, sensitive data remains protected due to
    frequent key rotation and the use of forward secrecy.
 
-   This specification extends builds on concepts from
+   This specification builds on concepts from
    [I-D.ietf-tls-extended-key-update] and applies them to the QUIC
    protocol context.  It thereby replaces the QUIC Key Update mechanism
    described in Section 6 of [QUIC-TLS].
