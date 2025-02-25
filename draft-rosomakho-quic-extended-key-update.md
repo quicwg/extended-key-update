@@ -118,7 +118,7 @@ error of type 0x01TBD, equivalent to TLS extended_key_update_required alert.
 After sending an ExtendedKeyUpdateResponse with accepted status, the responder derives new packet protection traffic secrets. The responder MUST continue
 using the previous secrets until it has received a packet with the Key Phase bit flipped and has successfully unprotected it using the new keys.
 
-After recieving and succesfully processing an ExtendedKeyUpdateResponse with accepted status, the initiator derives new packet protection traffic secrets,
+After receiving and succesfully processing an ExtendedKeyUpdateResponse with accepted status, the initiator derives new packet protection traffic secrets,
 flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator MUST retain the old read secret until
 it has received a packet with a flipped Key Phase bit from the responder and succesfully unprotected it using the new read secret.
 
@@ -146,12 +146,12 @@ cause delayed packets to be discarded, which the peer may interpreted as packet 
 {: #fig-extended-key-update title="Extended Key Update Process in QUIC."}
 
 QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages, defined in {{I-D.ietf-tls-extended-key-update}}, and
-instead relies on the use of the Key Phase bit. Endpoints MUST treat the receipt of a TLS NewKeyUpdate message as a connection error
+instead rely on the use of the Key Phase bit. Endpoints MUST treat the receipt of a TLS NewKeyUpdate message as a connection error
 of type 0x010a. QUIC endpoints that have agreed to the Extended Key Update process MUST NOT change the Key Phase bit without a succesful exchange of
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a success Extended Key Update exchange MUST be treated as
 a connection error of type KEY_UPDATE_ERROR (0x0e).
 
-The design of the key derivation function for computing the next generation of secrets is corresponds to the one described in
+The design of the key derivation function for computing the next generation of secrets corresponds to the one described in
 {{Section 6 of I-D.ietf-tls-extended-key-update}} with the exception of the use of a different label.
 
 ~~~pseudocode
