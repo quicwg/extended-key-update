@@ -6,7 +6,7 @@ Network Working Group                                       Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Updates: 9001 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 27 August 2025                                 23 February 2025
+Expires: 29 August 2025                                 25 February 2025
 
 
                       Extended Key Update for QUIC
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 August 2025.
+   This Internet-Draft will expire on 29 August 2025.
 
 Copyright Notice
 
@@ -186,7 +186,7 @@ Table of Contents
    received a packet with the Key Phase bit flipped and has successfully
    unprotected it using the new keys.
 
-   After recieving and succesfully processing an
+   After receiving and succesfully processing an
    ExtendedKeyUpdateResponse with accepted status, the initiator derives
    new packet protection traffic secrets, flips the Key Phase bit for
    new packets, and uses the new write secret to protect them.  The
@@ -220,7 +220,7 @@ Table of Contents
                Figure 1: Extended Key Update Process in QUIC.
 
    QUIC endpoints MUST NOT send NewKeyUpdate TLS handshake messages,
-   defined in [I-D.ietf-tls-extended-key-update], and instead relies on
+   defined in [I-D.ietf-tls-extended-key-update], and instead rely on
    the use of the Key Phase bit.  Endpoints MUST treat the receipt of a
    TLS NewKeyUpdate message as a connection error of type 0x010a.  QUIC
    endpoints that have agreed to the Extended Key Update process MUST
@@ -230,9 +230,9 @@ Table of Contents
    treated as a connection error of type KEY_UPDATE_ERROR (0x0e).
 
    The design of the key derivation function for computing the next
-   generation of secrets is corresponds to the one described in
-   Section 6 of [I-D.ietf-tls-extended-key-update] with the exception of
-   the use of a different label.
+   generation of secrets corresponds to the one described in Section 6
+   of [I-D.ietf-tls-extended-key-update] with the exception of the use
+   of a different label.
 
    sk = HKDF-Extract(Transcript-Hash(ExtendedKeyUpdateRequest,
                                      ExtendedKeyUpdateResponse), secret)
