@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-25T01:27:03.592327+00:00",
+  "timestamp": "2025-02-27T01:26:45.100624+00:00",
   "repo": "yaroslavros/quic-extended-key-update",
   "labels": [
     {
@@ -293,6 +293,56 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDONOTHKM6MY5bH",
+      "title": "A few typos",
+      "url": "https://github.com/yaroslavros/quic-extended-key-update/pull/9",
+      "state": "MERGED",
+      "author": "hawkinsw",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-25T03:58:12Z",
+      "updatedAt": "2025-02-25T23:32:55Z",
+      "baseRepository": "yaroslavros/quic-extended-key-update",
+      "baseRefName": "main",
+      "baseRefOid": "f22ffd5e05072aaa03d84e7d7a490c43867f8cf0",
+      "headRepository": "hawkinsw/quic-extended-key-update",
+      "headRefName": "patch-1",
+      "headRefOid": "b4d115618f2f9c9ce6b0ea3aefd20e3659bcd185",
+      "closedAt": "2025-02-25T23:32:55Z",
+      "mergedAt": "2025-02-25T23:32:55Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "5a1277c7186adb11c0d9cfd56373c5cfb6b335b3"
+      },
+      "comments": [
+        {
+          "author": "hawkinsw",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thank you for your work on this addition. I hope that these little typo fixes are helpful -- it's all I can do to support your work!",
+          "createdAt": "2025-02-25T03:58:40Z",
+          "updatedAt": "2025-02-25T03:58:40Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDONOTHKM6dhE48",
+          "commit": {
+            "abbreviatedOid": "b4d1156"
+          },
+          "author": "yaroslavros",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "Thank you very much for reading the document and correcting the mistakes!",
+          "createdAt": "2025-02-25T23:32:25Z",
+          "updatedAt": "2025-02-25T23:32:25Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
