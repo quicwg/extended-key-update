@@ -37,6 +37,13 @@ author:
     organization: University of Applied Sciences Bonn-Rhein-Sieg
     country: Germany
     email: Hannes.Tschofenig@gmx.net
+ -
+    fullname: Tirumaleswar Reddy
+    organization: Nokia
+    city: Bangalore
+    region: Karnataka
+    country: India
+    email: "kondtir@gmail.com"
 
 normative:
 
@@ -63,19 +70,14 @@ in environments like industrial IoT, telecommunication networks or Virtual Priva
 
 The TLS Extended Key Update {{!I-D.ietf-tls-extended-key-update}} introduces a mechanism to enhance the security and flexibility
 of encrypted communication protocols by enabling frequent key updates without requiring a full handshake renegotiation. This
-approach allows applications to refresh their encryption keys more often, improving forward secrecy and reducing the risk of
-key compromise over long-lived connections. By separating key updates from the computationally expensive handshake process,
+approach allows applications to refresh their encryption keys more often using ephemeral keys, improving forward secrecy and reducing the risk of key compromise over long-lived connections. By separating key updates from the computationally expensive handshake process,
 the specification provides a lightweight method for maintaining robust encryption in scenarios where connections need to
 remain secure for extended periods.
 
-This new TLS capability is particularly valuable in environments where interruptions to perform a full key exchange would cause
-significant disruption. Other encrypted communication protocols, such as IPsec {{?IKEv2=RFC7296}} and SSH {{?SSH-TRANSPORT=RFC4253}},
-include mechanisms for re-exchanging keys without interrupting active sessions. The TLS Extended Key Update specification ensures
-that even in the face of potential key compromise, sensitive data remains protected due to frequent key rotation and the use
-of forward secrecy.
+The TLS Extended Key Update mechanism is particularly valuable in environments where interruptions to perform a full key exchange would cause significant disruption. Other encrypted communication protocols, such as IPsec {{?IKEv2=RFC7296}} and SSH {{?SSH-TRANSPORT=RFC4253}}, include mechanisms for rekeying without interrupting active sessions. The TLS Extended Key Update specification helps protect sensitive data even in the event of a potential key compromise by enabling frequent key rotation and leveraging forward secrecy.
 
 This specification builds on concepts from {{I-D.ietf-tls-extended-key-update}} and applies them to the QUIC protocol context.
-It thereby replaces the QUIC Key Update mechanism described in {{Section 6 of !QUIC-TLS=RFC9001}}.
+It thereby replaces the QUIC Key Update mechanism described in {{Section 6 of !QUIC-TLS=RFC9001}}. Unlike the previous QUIC key update process, which independently updated keys based on the Key Phase bit, the extended key update mechanism derives a new shared secret using the TLS Extended Key Update procedure. This approach enables a coordinated key transition, integrating TLS for key exchange while refining the QUIC key update process to maintain QUIC-specific key derivation.
 
 # Conventions and Definitions
 
@@ -89,59 +91,67 @@ QUIC peers negotiate Extended Key Update through the TLS handshake process, as o
 Extended Key Update MUST NOT be used unless both QUIC peers include the TLS flags extension {{!I-D.ietf-tls-tlsflags}} in the handshake and
 set the "Extended_Key_Update" flag.
 
-Once Extended Key Update has been succesfully negotiated, QUIC peers MUST only use the Extended Key Update process defined in this document.
-The standard QUIC Key Update mechanism from {{Section 6 of QUIC-TLS}} MUST NOT be used for the duration of the session, as both
+Once the Extended Key Update has been successfully negotiated, QUIC peers MUST use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from {{Section 6 of QUIC-TLS}} MUST NOT be used for the duration of the session, as both
 Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and
-toggled to indicate a key update following the succesful post-handshake exchange of Extended Key Update messsages.
+toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages.
 
 # Extended Key Update Messages
 
-Either party MAY initiate the Extended Key Update process by sending an ExtendedKeyUpdateRequest TLS handshake message in a QUIC CRYPTO frame.
-This message MUST NOT be sent before the QUIC handshake is confirmed, as described in {{Section 4.1.2 of QUIC-TLS}}, or before previous Extended
-Key Update process is complete. If a QUIC endpoints receives an ExtendedKeyUpdateRequest message before the QUIC handshake is complete or during ongoing
-prior Extended Key Update, it MUST terminate the connection with an error of type 0x010a, equivalent to TLS unexpected_message alert as specified
-in {{Section 4.8 of QUIC-TLS}}.
+Either party MAY initiate the Extended Key Update process by sending an ExtendedKeyUpdateRequest TLS handshake message in a QUIC CRYPTO frame. This message MUST NOT be sent before the QUIC handshake is confirmed, as described in {{Section 4.1.2 of QUIC-TLS}}. If a QUIC endpoint receives an ExtendedKeyUpdateRequest message before the handshake is complete, it MUST terminate the connection with an error of type 0x010a, equivalent to the TLS unexpected_message alert, as specified in {{Section 4.8 of QUIC-TLS}}.
 
-Upon receiving an ExtendedKeyUpdateRequest, the recipient MUST respond with an ExtendedKeyUpdateResponse TLS handshake message within a QUIC CRYPTO frame.
-If a QUIC endpoint receives an unexpected ExtendedKeyUpdateResponse message from its peer, it MUST treat this as a TLS protocol error and terminate
-the connection.
+If both QUIC peers independently initiate an Extended Key Update and their ExtendedKeyUpdateRequest messages cross in flight, the conflict MUST be resolved following the clash error handling defined in {{I-D.ietf-tls-extended-key-update}}. Specifically, the lexicographic order of the key_exchange value in the KeyShareEntry determines which request is rejected, ensuring a coordinated key update process without advancing by 2 key generations.
 
-Specifications of the ExtendedKeyUpdateRequest and ExtendedKeyUpdateResponse messages are provided in {{Section 5 of I-D.ietf-tls-extended-key-update}}.
-Any mismatch between the negotiated NamedGroup during the initial handshake and the group used in the Extended Key Update message, or an incorrect length
-of the encapsulated key MUST result in connection termination with error of type 0x012f, equivalend to TLS illegal_parameter alert.
+Upon receiving an ExtendedKeyUpdateRequest, the recipient MUST respond with an ExtendedKeyUpdateResponse TLS handshake message within a QUIC CRYPTO frame. If a QUIC endpoint receives an ExtendedKeyUpdateResponse without having previously sent an ExtendedKeyUpdateRequest, it MUST treat this as a TLS protocol error and terminate the connection with an error of type 0x010a, equivalent to the TLS unexpected_message alert, as specified in {{Section 4.8 of QUIC-TLS}}.
 
-If the Extended Key Update initiator receives a retry or rejected status in the ExtendedKeyUpdateResponse message, it MAY terminate the connection with
-error of type 0x01TBD, equivalent to TLS extended_key_update_required alert.
+The ExtendedKeyUpdateRequest and ExtendedKeyUpdateResponse messages are defined in {{Section 5 of I-D.ietf-tls-extended-key-update}}.
+Any mismatch between the negotiated NamedGroup during the initial handshake and the group used in the Extended Key Update message, or an incorrect length of the encapsulated key MUST result in connection termination with error of type 0x012f, equivalent to TLS illegal_parameter alert.
+
+If the Extended Key Update initiator receives a retry status in the ExtendedKeyUpdateResponse message, it MUST wait for the duration specified in the response before attempting another key update. The ExtendedKeyUpdateResponse message contains a delay value (in seconds) indicating how long the initiator MUST wait before retrying. The initiator MUST NOT retry within this interval and SHOULD retry once it has lapsed. If the initiator cannot proceed without an immediate Extended Key Update, it MUST terminate the connection with an error of type TBD1, equivalent to the TLS extended_key_update_required alert.
+
+If the initiator receives a rejected status, it MAY terminate the connection with an error of type TBD1, equivalent to the TLS extended_key_update_required alert.
 
 # Updating the Traffic Secrets
 
 After sending an ExtendedKeyUpdateResponse with accepted status, the responder derives new packet protection traffic secrets. The responder MUST continue
-using the previous secrets until it has received a packet with the Key Phase bit flipped and has successfully unprotected it using the new keys.
+using the previous secrets until it has received a packet with the Key Phase bit flipped and has successfully decrypted it using the new keys.
 
 After receiving and succesfully processing an ExtendedKeyUpdateResponse with accepted status, the initiator derives new packet protection traffic secrets,
 flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator MUST retain the old read secret until
-it has received a packet with a flipped Key Phase bit from the responder and succesfully unprotected it using the new read secret.
+it has received a packet with a flipped Key Phase bit from the responder and succesfully decrypted it using the new read secret.
 
 Both endpoints SHOULD retain old read secrets for some time after unprotecting a packet encrypted with the new keys. Discarding old secret too early may
 cause delayed packets to be discarded, which the peer may interpreted as packet loss, potentially impacting performance.
+
+Both endpoints SHOULD retain old read secrets for some time after successfully decrypting a packet encrypted with the new keys. Discarding old secrets too early may cause delayed packets to be discarded, which the peer may interpret as packet loss, potentially impacting performance. However, implementations may choose to discard old secrets sooner in environments where memory limitations or security policies require minimizing the lifetime of old keys. The retention period should be chosen carefully to mitigate the risk of cryptographic attacks while still allowing late-arriving packets to be processed.
 
 {{fig-extended-key-update}} shows this interaction graphically.
 
 ~~~aasvg
         Initiator                              Responder
 
-[  packet using old key
-    and prior Key Phase   ] -------->
-                            <--------  [  packet using old key
-                                           and prior Key Phase  ]
-                               ...
-[ExtendedKeyUpdateRequest]  -------->
-                            <--------  [ExtendedKeyUpdateResponse]
-[  packet using new key
-   and updated Key Phase  ] -------->
-                            <--------  [ packet using new key
-                                         and updated Key Phase ]
-                               ...
+@M [0] QUIC Packets
+                           -------->
+                                      @M [0] QUIC Packets
+                           <--------
+
+[ ExtendedKeyUpdateRequest ]  -------->
+                           <--------  [ ExtendedKeyUpdateResponse ]
+... Update to @N
+@N [1] QUIC Packets
+                      -------->
+                                         Update to @N ...
+                                      QUIC Packets [1] @N
+                      <--------
+                                      QUIC Packets [1] @N
+                                      containing ACK
+                      <--------
+... Key Update Permitted
+
+@N [1] QUIC Packets
+         containing ACK for @N packets
+                      -------->
+                                 Key Update Permitted ...
+
 ~~~
 {: #fig-extended-key-update title="Extended Key Update Process in QUIC."}
 
@@ -169,7 +179,7 @@ The corresponding key and IV are derived from the new secret as defined in {{Sec
 
 This specification describes an update to the key schedule of QUIC. Therefore, implementations MUST ensure that peers adhere strictly to the process
 described in this document. Packets with higher packet numbers MUST NOT be protected using an older generation of secrets, as this could compromise key
-synchronization and security.
+synchronization and forward security.
 
 As key exchange may be computationally intensive, responders SHOULD consider rate-limiting Extended Key Exchange requests. This can be done by responding
 with retry status as outlined in {{Section 5 of I-D.ietf-tls-extended-key-update}} and terminating connections for initiators that violate the back-off timer.
