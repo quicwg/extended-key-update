@@ -2,16 +2,16 @@
 
 This is the working area for the individual Internet-Draft, "Extended Key Update for QUIC".
 
-* [Editor's Copy](https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-quic-extended-key-update.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-rosomakho-quic-extended-key-update)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-rosomakho-quic-extended-key-update)
-* [Compare Editor's Copy to Individual Draft](https://yaroslavros.github.io/quic-extended-key-update/#go.draft-rosomakho-quic-extended-key-update.diff)
+* [Editor's Copy](https://quicwg.org/extended-key-update/draft-ietf-quic-extended-key-update.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-quic-extended-key-update)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-ietf-quic-extended-key-update)
+* [Compare Editor's Copy to Individual Draft](https://quicwg.org/extended-key-update/#go.draft-ietf-quic-extended-key-update.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/yaroslavros/quic-extended-key-update/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/quicwg/extended-key-update/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
