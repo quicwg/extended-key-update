@@ -2,7 +2,7 @@
 title: "Extended Key Update for QUIC"
 category: std
 
-docname: draft-rosomakho-quic-extended-key-update-latest
+docname: draft-ietf-quic-extended-key-update-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
@@ -10,19 +10,19 @@ category: std
 updates: 9001
 consensus: true
 v: 3
-# area: Transport
-# workgroup: QUIC
+area: Transport
+workgroup: QUIC
 keyword:
  - quic
  - extended key update
  - forward secrecy
 venue:
-#  group: QUIC
-#  type: Working Group
-#  mail: quic@ietf.org
-#  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
-  github: "yaroslavros/quic-extended-key-update"
-  latest: "https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-quic-extended-key-update.html"
+  group: QUIC
+  type: Working Group
+  mail: quic@ietf.org
+  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
+  github: "quicwg/extended-key-update"
+  latest: "https://quicwg.org/extended-key-update/draft-ietf-quic-extended-key-update.html"
 
 author:
  -
