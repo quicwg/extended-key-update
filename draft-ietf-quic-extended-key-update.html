@@ -16,27 +16,27 @@ involving long-lived connections.
        This specification replaces the QUIC Key Update mechanism described in the "Using TLS to
 Secure QUIC" specification. 
     ' name="description">
-<meta content="xml2rfc 3.27.0" name="generator">
+<meta content="xml2rfc 3.28.1" name="generator">
 <meta content="quic" name="keyword">
 <meta content="extended key update" name="keyword">
 <meta content="forward secrecy" name="keyword">
-<meta content="draft-rosomakho-quic-extended-key-update-latest" name="ietf.draft">
+<meta content="draft-ietf-quic-extended-key-update-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.27.0
-    Python 3.12.9
+  xml2rfc 3.28.1
+    Python 3.12.10
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.5
+    Jinja2 3.1.6
     lxml 5.3.0
-    platformdirs 4.3.6
+    platformdirs 4.3.7
     pycountry 24.6.1
     PyYAML 6.0.2
     requests 2.32.3
     setuptools 70.3.0
     wcwidth 0.2.13
 -->
-<link href="draft-rosomakho-quic-extended-key-update.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-ietf-quic-extended-key-update.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1053,11 +1053,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Extended Key Update for QUIC</td>
-<td class="right">February 2025</td>
+<td class="right">May 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rosomakho &amp; Tschofenig</td>
-<td class="center">Expires 27 August 2025</td>
+<td class="center">Expires 11 November 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,20 +1065,20 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">Network Working Group</dd>
+<dd class="workgroup">QUIC</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-rosomakho-quic-extended-key-update-latest</dd>
+<dd class="internet-draft">draft-ietf-quic-extended-key-update-latest</dd>
 <dt class="label-updates">Updates:</dt>
 <dd class="updates">
 <a href="https://www.rfc-editor.org/rfc/rfc9001" class="eref">9001</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-23" class="published">23 February 2025</time>
+<time datetime="2025-05-10" class="published">10 May 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-27">27 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-11-11">11 November 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1109,10 +1109,15 @@ Secure QUIC" specification.<a href="#section-abstract-2" class="pilcrow">¶</a><
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-quic-extended-key-update.html">https://yaroslavros.github.io/quic-extended-key-update/draft-rosomakho-quic-extended-key-update.html</a></span>.
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-rosomakho-quic-extended-key-update/">https://datatracker.ietf.org/doc/draft-rosomakho-quic-extended-key-update/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/yaroslavros/quic-extended-key-update">https://github.com/yaroslavros/quic-extended-key-update</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        The latest revision of this draft can be found at <span><a href="https://quicwg.org/extended-key-update/draft-ietf-quic-extended-key-update.html">https://quicwg.org/extended-key-update/draft-ietf-quic-extended-key-update.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-quic-extended-key-update/">https://datatracker.ietf.org/doc/draft-ietf-quic-extended-key-update/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        QUIC Working Group mailing list (<span><a href="mailto:quic@ietf.org">mailto:quic@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/quic/">https://mailarchive.ietf.org/arch/browse/quic/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/quic/">https://www.ietf.org/mailman/listinfo/quic/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/quicwg/extended-key-update">https://github.com/quicwg/extended-key-update</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1133,7 +1138,7 @@ Secure QUIC" specification.<a href="#section-abstract-2" class="pilcrow">¶</a><
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 27 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 November 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1243,7 +1248,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-extended-key-update-negotia">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-extended-key-update-negotia" class="section-name selfRef">Extended Key Update Negotiation</a>
       </h2>
-<p id="section-3-1">QUIC peers negotiate Extended Key Update through the TLS handshake process, as outlined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-03#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span>.
+<p id="section-3-1">QUIC peers negotiate Extended Key Update through the TLS handshake process, as outlined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-04#section-4" class="relref">Section 4</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span>.
 Extended Key Update <span class="bcp14">MUST NOT</span> be used unless both QUIC peers include the TLS flags extension <span>[<a href="#I-D.ietf-tls-tlsflags" class="cite xref">I-D.ietf-tls-tlsflags</a>]</span> in the handshake and
 set the "Extended_Key_Update" flag.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Once Extended Key Update has been succesfully negotiated, QUIC peers <span class="bcp14">MUST</span> only use the Extended Key Update process defined in this document.
@@ -1265,7 +1270,7 @@ in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.8" class="relref"
 <p id="section-4-2">Upon receiving an ExtendedKeyUpdateRequest, the recipient <span class="bcp14">MUST</span> respond with an ExtendedKeyUpdateResponse TLS handshake message within a QUIC CRYPTO frame.
 If a QUIC endpoint receives an unexpected ExtendedKeyUpdateResponse message from its peer, it <span class="bcp14">MUST</span> treat this as a TLS protocol error and terminate
 the connection.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">Specifications of the ExtendedKeyUpdateRequest and ExtendedKeyUpdateResponse messages are provided in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-03#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span>.
+<p id="section-4-3">Specifications of the ExtendedKeyUpdateRequest and ExtendedKeyUpdateResponse messages are provided in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-04#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span>.
 Any mismatch between the negotiated NamedGroup during the initial handshake and the group used in the Extended Key Update message, or an incorrect length
 of the encapsulated key <span class="bcp14">MUST</span> result in connection termination with error of type 0x012f, equivalend to TLS illegal_parameter alert.<a href="#section-4-3" class="pilcrow">¶</a></p>
 <p id="section-4-4">If the Extended Key Update initiator receives a retry or rejected status in the ExtendedKeyUpdateResponse message, it <span class="bcp14">MAY</span> terminate the connection with
@@ -1279,7 +1284,7 @@ error of type 0x01TBD, equivalent to TLS extended_key_update_required alert.<a h
       </h2>
 <p id="section-5-1">After sending an ExtendedKeyUpdateResponse with accepted status, the responder derives new packet protection traffic secrets. The responder <span class="bcp14">MUST</span> continue
 using the previous secrets until it has received a packet with the Key Phase bit flipped and has successfully unprotected it using the new keys.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">After recieving and succesfully processing an ExtendedKeyUpdateResponse with accepted status, the initiator derives new packet protection traffic secrets,
+<p id="section-5-2">After receiving and succesfully processing an ExtendedKeyUpdateResponse with accepted status, the initiator derives new packet protection traffic secrets,
 flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator <span class="bcp14">MUST</span> retain the old read secret until
 it has received a packet with a flipped Key Phase bit from the responder and succesfully unprotected it using the new read secret.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">Both endpoints <span class="bcp14">SHOULD</span> retain old read secrets for some time after unprotecting a packet encrypted with the new keys. Discarding old secret too early may
@@ -1358,12 +1363,12 @@ cause delayed packets to be discarded, which the peer may interpreted as packet 
         </figcaption></figure>
 </div>
 <p id="section-5-6">QUIC endpoints <span class="bcp14">MUST NOT</span> send NewKeyUpdate TLS handshake messages, defined in <span>[<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span>, and
-instead relies on the use of the Key Phase bit. Endpoints <span class="bcp14">MUST</span> treat the receipt of a TLS NewKeyUpdate message as a connection error
+instead rely on the use of the Key Phase bit. Endpoints <span class="bcp14">MUST</span> treat the receipt of a TLS NewKeyUpdate message as a connection error
 of type 0x010a. QUIC endpoints that have agreed to the Extended Key Update process <span class="bcp14">MUST NOT</span> change the Key Phase bit without a succesful exchange of
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a success Extended Key Update exchange <span class="bcp14">MUST</span> be treated as
 a connection error of type KEY_UPDATE_ERROR (0x0e).<a href="#section-5-6" class="pilcrow">¶</a></p>
-<p id="section-5-7">The design of the key derivation function for computing the next generation of secrets is corresponds to the one described in
-<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-03#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span> with the exception of the use of a different label.<a href="#section-5-7" class="pilcrow">¶</a></p>
+<p id="section-5-7">The design of the key derivation function for computing the next generation of secrets corresponds to the one described in
+<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-04#section-6" class="relref">Section 6</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span> with the exception of the use of a different label.<a href="#section-5-7" class="pilcrow">¶</a></p>
 <div class="lang-pseudocode sourcecode" id="section-5-8">
 <pre>
 sk = HKDF-Extract(Transcript-Hash(ExtendedKeyUpdateRequest,
@@ -1385,7 +1390,7 @@ secret_&lt;n+1&gt; = HKDF-Expand-Label(sk, "quic eku",
 described in this document. Packets with higher packet numbers <span class="bcp14">MUST NOT</span> be protected using an older generation of secrets, as this could compromise key
 synchronization and security.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">As key exchange may be computationally intensive, responders <span class="bcp14">SHOULD</span> consider rate-limiting Extended Key Exchange requests. This can be done by responding
-with retry status as outlined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-03#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span> and terminating connections for initiators that violate the back-off timer.
+with retry status as outlined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-04#section-5" class="relref">Section 5</a> of [<a href="#I-D.ietf-tls-extended-key-update" class="cite xref">I-D.ietf-tls-extended-key-update</a>]</span> and terminating connections for initiators that violate the back-off timer.
 This approach helps prevent excessive load on endpoints and mitigates the risk of denial-of-service attacks.<a href="#section-6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1410,11 +1415,11 @@ This approach helps prevent excessive load on endpoints and mitigates the risk o
 <dl class="references">
 <dt id="I-D.ietf-tls-extended-key-update">[I-D.ietf-tls-extended-key-update]</dt>
         <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Tüxen, M.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Fries, S.</span>, and <span class="refAuthor">Y. Rosomakho</span>, <span class="refTitle">"Extended Key Update for Transport Layer Security (TLS) 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-extended-key-update-03</span>, <time datetime="2024-10-21" class="refDate">21 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-03">https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Tüxen, M.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Fries, S.</span>, and <span class="refAuthor">Y. Rosomakho</span>, <span class="refTitle">"Extended Key Update for Transport Layer Security (TLS) 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-extended-key-update-04</span>, <time datetime="2025-03-03" class="refDate">3 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-04">https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-tls-tlsflags">[I-D.ietf-tls-tlsflags]</dt>
         <dd>
-<span class="refAuthor">Nir, Y.</span>, <span class="refTitle">"A Flags Extension for TLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-tlsflags-14</span>, <time datetime="2024-09-13" class="refDate">13 September 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-14">https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-14</a>&gt;</span>. </dd>
+<span class="refAuthor">Nir, Y.</span>, <span class="refTitle">"A Flags Extension for TLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-tlsflags-15</span>, <time datetime="2025-03-15" class="refDate">15 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-15">https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-15</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QUIC">[QUIC]</dt>
         <dd>
