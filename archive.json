@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-18T01:51:47.709782+00:00",
+  "timestamp": "2025-05-22T01:45:46.513682+00:00",
   "repo": "quicwg/extended-key-update",
   "labels": [
     {
@@ -390,19 +390,87 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-05-12T05:08:54Z",
-      "updatedAt": "2025-05-15T13:35:03Z",
+      "updatedAt": "2025-05-21T15:09:43Z",
       "baseRepository": "quicwg/extended-key-update",
       "baseRefName": "main",
       "baseRefOid": "b587105110c91660ec9485932e6104bb4e30cef6",
       "headRepository": "tireddy2/quic-extended-key-update",
       "headRefName": "main",
-      "headRefOid": "49f6165345aaf3751ce1ebe064bf48ea64ccf71d",
+      "headRefOid": "a9066e54c8194a8fa02e31d8a1f06da0d184940e",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "tireddy2",
+          "authorAssociation": "NONE",
+          "body": "@hannestschofenig @yaroslavros - please review",
+          "createdAt": "2025-05-20T08:03:26Z",
+          "updatedAt": "2025-05-20T08:03:26Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDONOTHKM6qK_3l",
+          "commit": {
+            "abbreviatedOid": "49f6165"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-05-20T17:17:08Z",
+          "updatedAt": "2025-05-20T17:17:09Z",
+          "comments": [
+            {
+              "originalPosition": 76,
+              "body": "```suggestion\r\nIf both QUIC peers independently initiate an Extended Key Update and their ExtendedKeyUpdateRequest messages cross in flight, the conflict MUST be resolved following the clash error handling defined in {{I-D.ietf-tls-extended-key-update}}. Specifically, the lexicographic order of the key_exchange value in the KeyShareEntry determines which request is rejected, ensuring a coordinated key update process without advancing by two key generations.\r\n```",
+              "createdAt": "2025-05-20T17:17:09Z",
+              "updatedAt": "2025-05-20T17:17:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONOTHKM6qLA3H",
+          "commit": {
+            "abbreviatedOid": "a9066e5"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "The PR looks good to me.",
+          "createdAt": "2025-05-20T17:18:12Z",
+          "updatedAt": "2025-05-20T17:18:12Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDONOTHKM6qWvTJ",
+          "commit": {
+            "abbreviatedOid": "a9066e5"
+          },
+          "author": "yaroslavros",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2025-05-21T15:00:15Z",
+          "updatedAt": "2025-05-21T15:09:43Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "Any reason for these changes?\r\nAlso, why change repo name?",
+              "createdAt": "2025-05-21T15:00:16Z",
+              "updatedAt": "2025-05-21T15:09:43Z"
+            },
+            {
+              "originalPosition": 149,
+              "body": "I'm not sure if I'm familiar with `@M [0]` or `@N [1]` notation. Is it something defined somewhere?",
+              "createdAt": "2025-05-21T15:09:19Z",
+              "updatedAt": "2025-05-21T15:09:43Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
