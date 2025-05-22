@@ -17,12 +17,12 @@ keyword:
  - extended key update
  - forward secrecy
 venue:
-group: QUIC
-type: Working Group
-mail: quic@ietf.org
-arch: "https://mailarchive.ietf.org/arch/browse/quic/"
-github: "quicwg/quic-extended-key-update"
-latest: "https://quicwg.org/extended-key-update/draft-ietf-quic-extended-key-update.html"
+  group: QUIC
+  type: Working Group
+  mail: quic@ietf.org
+  arch: "https://mailarchive.ietf.org/arch/browse/quic/"
+  github: "quicwg/extended-key-update"
+  latest: "https://quicwg.org/extended-key-update/draft-ietf-quic-extended-key-update.html"
 
 author:
  -
@@ -124,7 +124,7 @@ cause delayed packets to be discarded, which the peer may interpreted as packet 
 
 Both endpoints SHOULD retain old read secrets for some time after successfully decrypting a packet encrypted with the new keys. Discarding old secrets too early may cause delayed packets to be discarded, which the peer may interpret as packet loss, potentially impacting performance. However, implementations may choose to discard old secrets sooner in environments where memory limitations or security policies require minimizing the lifetime of old keys. The retention period should be chosen carefully to mitigate the risk of cryptographic attacks while still allowing late-arriving packets to be processed.
 
-{{fig-extended-key-update}} shows this interaction graphically.
+{{fig-extended-key-update}} shows this interaction graphically where the initial set of keys used (identified with @M) are replaced by updated keys (identified with @N). The value of the Key Phase bit is indicated in brackets [].
 
 ~~~aasvg
         Initiator                              Responder
