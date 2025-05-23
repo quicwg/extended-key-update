@@ -138,19 +138,19 @@ Both endpoints SHOULD retain old read secrets for some time after successfully d
                              <--------  [ ExtendedKeyUpdateResponse ]
 ... Update to @N
 @N [1] QUIC Packets
-                            -------->
+                             -------->
                                         Update to @N ...
                                         QUIC Packets [1] @N
-                            <--------
+                             <--------
                                         QUIC Packets [1] @N
                                         containing ACK
-                            <--------
+                             <--------
 ... Key Update Permitted
 
 @N [1] QUIC Packets
 containing ACK for @N packets
-                            -------->
-                                         Key Update Permitted ...
+                             -------->
+                                        Key Update Permitted ...
 
 ~~~
 {: #fig-extended-key-update title="Extended Key Update Process in QUIC."}
