@@ -161,19 +161,7 @@ of type 0x010a. QUIC endpoints that have agreed to the Extended Key Update proce
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a success Extended Key Update exchange MUST be treated as
 a connection error of type KEY_UPDATE_ERROR (0x0e).
 
-The design of the key derivation function for computing the next generation of secrets corresponds to the one described in
-{{Section 6 of I-D.ietf-tls-extended-key-update}} with the exception of the use of a different label.
-
-~~~pseudocode
-sk = HKDF-Extract(Transcript-Hash(ExtendedKeyUpdateRequest,
-                                  ExtendedKeyUpdateResponse), secret)
-
-secret_<n+1> = HKDF-Expand-Label(sk, "quic eku",
-                                 secret_<n>, Hash.length)
-~~~
-
-
-The corresponding key and IV are derived from the new secret as defined in {{Section 5.1 of QUIC-TLS}}. The header protection key is not updated.
+Key derivation function for computing the next generation of secrets is described in {{Section 6 of I-D.ietf-tls-extended-key-update}}. The corresponding key and IV are derived from the new secret as defined in {{Section 5.1 of QUIC-TLS}}. The header protection key is not updated.
 
 # Security Considerations
 
