@@ -6,9 +6,9 @@ QUIC                                                        Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Updates: 9001 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 24 November 2025                                       T. Reddy
+Expires: 8 January 2026                                         T. Reddy
                                                                    Nokia
-                                                             23 May 2025
+                                                             7 July 2025
 
 
                       Extended Key Update for QUIC
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 November 2025.
+   This Internet-Draft will expire on 8 January 2026.
 
 Copyright Notice
 
@@ -285,20 +285,11 @@ Table of Contents
    changed without a success Extended Key Update exchange MUST be
    treated as a connection error of type KEY_UPDATE_ERROR (0x0e).
 
-   The design of the key derivation function for computing the next
-   generation of secrets corresponds to the one described in Section 6
-   of [I-D.ietf-tls-extended-key-update] with the exception of the use
-   of a different label.
-
-   sk = HKDF-Extract(Transcript-Hash(ExtendedKeyUpdateRequest,
-                                     ExtendedKeyUpdateResponse), secret)
-
-   secret_<n+1> = HKDF-Expand-Label(sk, "quic eku",
-                                    secret_<n>, Hash.length)
-
-   The corresponding key and IV are derived from the new secret as
-   defined in Section 5.1 of [QUIC-TLS].  The header protection key is
-   not updated.
+   Key derivation function for computing the next generation of secrets
+   is described in Section 6 of [I-D.ietf-tls-extended-key-update].  The
+   corresponding key and IV are derived from the new secret as defined
+   in Section 5.1 of [QUIC-TLS].  The header protection key is not
+   updated.
 
 6.  Security Considerations
 
