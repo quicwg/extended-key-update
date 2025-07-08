@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-05-25T01:54:14.927102+00:00",
+  "timestamp": "2025-07-08T01:51:13.890590+00:00",
   "repo": "quicwg/extended-key-update",
   "labels": [
     {
@@ -583,6 +583,116 @@
           "body": "",
           "createdAt": "2025-05-23T11:07:58Z",
           "updatedAt": "2025-05-23T11:07:58Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDONOTHKM6dpI3H",
+      "title": "Converged key derivation logic",
+      "url": "https://github.com/quicwg/extended-key-update/pull/12",
+      "state": "MERGED",
+      "author": "yaroslavros",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This syncs up QUIC extended key update with https://github.com/tlswg/tls-key-update/pull/33",
+      "createdAt": "2025-07-06T16:35:28Z",
+      "updatedAt": "2025-07-07T15:54:05Z",
+      "baseRepository": "quicwg/extended-key-update",
+      "baseRefName": "main",
+      "baseRefOid": "600b7097afc79db3a102af63daacfe68876fdc3f",
+      "headRepository": "quicwg/extended-key-update",
+      "headRefName": "converge-key-derivation",
+      "headRefOid": "add7645628d030e2e102349032c54e5c9a85782e",
+      "closedAt": "2025-07-07T15:54:05Z",
+      "mergedAt": "2025-07-07T15:54:05Z",
+      "mergedBy": "yaroslavros",
+      "mergeCommit": {
+        "oid": "a1f65604267e436d91724ac58628019b96eb0375"
+      },
+      "comments": [
+        {
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I am OK with getting the functionality inline with the TLS extended key update draft. It would, however, also be good to see how the discussion goes with regards to the changes I am proposing. I think they are inline with what we have been thinking but they are still fairly substantial...",
+          "createdAt": "2025-07-07T14:36:23Z",
+          "updatedAt": "2025-07-07T14:36:23Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDONOTHKM6yakXO",
+          "commit": {
+            "abbreviatedOid": "add7645"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-07T11:01:30Z",
+          "updatedAt": "2025-07-07T11:01:35Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "why did you get rid of secret_<n+1> = HKDF-Expand-Label(sk, \"quic eku\",secret_<n>, Hash.length) ?\r\nI see https://datatracker.ietf.org/doc/html/rfc9001#section-6.1 uses \"quic ku\" label, different from the label used by TLS. ",
+              "createdAt": "2025-07-07T11:01:30Z",
+              "updatedAt": "2025-07-07T11:01:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONOTHKM6yaxRb",
+          "commit": {
+            "abbreviatedOid": "add7645"
+          },
+          "author": "yaroslavros",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-07T11:20:26Z",
+          "updatedAt": "2025-07-07T11:20:26Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Please take a look at https://github.com/tlswg/tls-key-update/pull/33\nTLS EKU now uses separate labels for each secret",
+              "createdAt": "2025-07-07T11:20:26Z",
+              "updatedAt": "2025-07-07T11:21:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONOTHKM6ycQ6t",
+          "commit": {
+            "abbreviatedOid": "add7645"
+          },
+          "author": "tireddy2",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-07T13:02:05Z",
+          "updatedAt": "2025-07-07T13:02:05Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Thanks, update looks good to me. ",
+              "createdAt": "2025-07-07T13:02:05Z",
+              "updatedAt": "2025-07-07T13:02:05Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONOTHKM6yd3tx",
+          "commit": {
+            "abbreviatedOid": "add7645"
+          },
+          "author": "hannestschofenig",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "See my comment in the conversation tab",
+          "createdAt": "2025-07-07T14:36:45Z",
+          "updatedAt": "2025-07-07T14:36:45Z",
           "comments": []
         }
       ]
