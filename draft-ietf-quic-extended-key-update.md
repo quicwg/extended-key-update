@@ -153,7 +153,7 @@ containing ACK for @N packets
 
 QUIC endpoints that have agreed to the Extended Key Update process MUST NOT change the Key Phase bit without a succesful exchange of
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a success Extended Key Update exchange MUST be treated as
-a connection error of type KEY_UPDATE_ERROR (0x0e).
+a connection error of type KEY_UPDATE_ERROR (0x0e), as defined in RFC 9000.
 
 Key derivation function for computing the next generation of secrets is described in {{Section 7 of TLS-EKU}}. The corresponding key and IV are derived from the new secret as defined in {{Section 5.1 of QUIC-TLS}}. The header protection key is not updated.
 
