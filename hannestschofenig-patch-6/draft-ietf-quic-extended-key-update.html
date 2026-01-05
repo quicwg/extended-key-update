@@ -1250,9 +1250,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3-1">QUIC peers negotiate Extended Key Update through the TLS handshake process, as outlined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-3" class="relref">Section 3</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>.
 Extended Key Update <span class="bcp14">MUST NOT</span> be used unless both QUIC peers include the TLS flags extension <span>[<a href="#TLS-FLAGS" class="cite xref">TLS-FLAGS</a>]</span> in the handshake and
 set the "Extended_Key_Update" flag.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">Once the Extended Key Update has been successfully negotiated, QUIC peers <span class="bcp14">MUST</span> use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from <span><a href="https://rfc-editor.org/rfc/rfc9001#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span> <span class="bcp14">MUST NOT</span> be used for the duration of the session, as both
-Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and
-toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-2">Once the Extended Key Update has been successfully negotiated, QUIC peers <span class="bcp14">MUST</span> use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from <span><a href="https://rfc-editor.org/rfc/rfc9001#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span> <span class="bcp14">MUST NOT</span> be used for the duration of the session, as both Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages. The Key Phase bit <span class="bcp14">MUST</span> only be changed as a result of a successful Extended Key Update exchange.<a href="#section-3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="extended-key-update-messages">
@@ -1273,15 +1271,13 @@ toggled to indicate a key update following the successful post-handshake exchang
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-updating-the-traffic-secret" class="section-name selfRef">Updating the Traffic Secrets</a>
       </h2>
 <p id="section-5-1">After sending an ExtendedKeyUpdate with key_update_response message subtype, the responder derives new packet protection traffic secrets. The responder <span class="bcp14">MUST</span> continue using the previous secrets until it has received a packet with the Key Phase bit flipped and has successfully decrypted it using the new keys.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">After receiving and succesfully processing an ExtendedKeyUpdate with key_update_response message subtype, the initiator derives new packet protection traffic secrets, flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator <span class="bcp14">MUST</span> retain the old read secret until it has received a packet with a flipped Key Phase bit from the responder and succesfully decrypted it using the new read secret.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">Both endpoints <span class="bcp14">SHOULD</span> retain old read secrets for some time after unprotecting a packet encrypted with the new keys. Discarding old secret too early may
-cause delayed packets to be discarded, which the peer may interpreted as packet loss, potentially impacting performance.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">Both endpoints <span class="bcp14">SHOULD</span> retain old read secrets for some time after successfully decrypting a packet encrypted with the new keys. Discarding old secrets too early may cause delayed packets to be discarded, which the peer may interpret as packet loss, potentially impacting performance. However, implementations may choose to discard old secrets sooner in environments where memory limitations or security policies require minimizing the lifetime of old keys. The retention period should be chosen carefully to mitigate the risk of cryptographic attacks while still allowing late-arriving packets to be processed.<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5"><a href="#fig-extended-key-update" class="auto internal xref">Figure 1</a> shows this interaction graphically where the initial set of keys used (identified with @M) are replaced by updated keys (identified with @N). The value of the Key Phase bit is indicated in brackets [].<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-2">After receiving and successfully processing an ExtendedKeyUpdate with key_update_response message subtype, the initiator derives new packet protection traffic secrets, flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator <span class="bcp14">MUST</span> retain the old read secret until it has received a packet with a flipped Key Phase bit from the responder and successfully decrypted it using the new read secret.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">Both endpoints <span class="bcp14">SHOULD</span> retain old read secrets for some time after successfully decrypting a packet encrypted with the new keys. Discarding old secrets too early may cause delayed packets to be discarded, which the peer may be interpreted as packet loss, potentially impacting performance. However, implementations may choose to discard old secrets sooner in environments where memory limitations or security policies require minimizing the lifetime of old keys. The retention period should be chosen carefully to mitigate the risk of cryptographic attacks while still allowing late-arriving packets to be processed.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4"><a href="#fig-extended-key-update" class="auto internal xref">Figure 1</a> shows this interaction graphically where the initial set of keys used (identified with @M) are replaced by updated keys (identified with @N). The value of the Key Phase bit is indicated in brackets [].<a href="#section-5-4" class="pilcrow">¶</a></p>
 <span id="name-extended-key-update-process"></span><div id="fig-extended-key-update">
 <figure id="figure-1">
-        <div id="section-5-6.1">
-          <div class="alignLeft art-svg artwork" id="section-5-6.1.1">
+        <div id="section-5-5.1">
+          <div class="alignLeft art-svg artwork" id="section-5-5.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="464" width="560" viewBox="0 0 560 464" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
               <path d="M 240,80 L 304,80" fill="none" stroke="black"></path>
               <path d="M 240,112 L 304,112" fill="none" stroke="black"></path>
@@ -1358,17 +1354,17 @@ cause delayed packets to be discarded, which the peer may interpreted as packet 
                 <text x="448" y="436">Permitted</text>
                 <text x="504" y="436">...</text>
               </g>
-            </svg><a href="#section-5-6.1.1" class="pilcrow">¶</a>
+            </svg><a href="#section-5-5.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-1" class="selfRef">Figure 1</a>:
 <a href="#name-extended-key-update-process" class="selfRef">Extended Key Update Process in QUIC.</a>
         </figcaption></figure>
 </div>
-<p id="section-5-7">QUIC endpoints that have agreed to the Extended Key Update process <span class="bcp14">MUST NOT</span> change the Key Phase bit without a succesful exchange of
+<p id="section-5-6">QUIC endpoints that have agreed to the Extended Key Update process <span class="bcp14">MUST NOT</span> change the Key Phase bit without a succesful exchange of
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a success Extended Key Update exchange <span class="bcp14">MUST</span> be treated as
-a connection error of type KEY_UPDATE_ERROR (0x0e), as defined in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-20.1" class="relref">Section 20.1</a> of [<a href="#QUIC" class="cite xref">QUIC</a>]</span>.<a href="#section-5-7" class="pilcrow">¶</a></p>
-<p id="section-5-8">Key derivation function for computing the next generation of secrets is described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-7" class="relref">Section 7</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>. The corresponding key and IV are derived from the new secret as defined in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.1" class="relref">Section 5.1</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>. The header protection key is not updated.<a href="#section-5-8" class="pilcrow">¶</a></p>
+a connection error of type KEY_UPDATE_ERROR (0x0e), as defined in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-20.1" class="relref">Section 20.1</a> of [<a href="#QUIC" class="cite xref">QUIC</a>]</span>.<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-7">Key derivation function for computing the next generation of secrets is described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-7" class="relref">Section 7</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>. The corresponding key and IV are derived from the new secret as defined in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.1" class="relref">Section 5.1</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>. The header protection key is not updated.<a href="#section-5-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
