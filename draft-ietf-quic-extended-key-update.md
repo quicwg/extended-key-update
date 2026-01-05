@@ -91,9 +91,7 @@ QUIC peers negotiate Extended Key Update through the TLS handshake process, as o
 Extended Key Update MUST NOT be used unless both QUIC peers include the TLS flags extension {{!TLS-FLAGS=I-D.ietf-tls-tlsflags}} in the handshake and
 set the "Extended_Key_Update" flag.
 
-Once the Extended Key Update has been successfully negotiated, QUIC peers MUST use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from {{Section 6 of QUIC-TLS}} MUST NOT be used for the duration of the session, as both
-Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and
-toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages.
+Once the Extended Key Update has been successfully negotiated, QUIC peers MUST use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from {{Section 6 of QUIC-TLS}} MUST NOT be used for the duration of the session, as both Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages. The Key Phase bit MUST only be changed as a result of a successful Extended Key Update exchange.
 
 # Extended Key Update Messages
 
@@ -111,12 +109,9 @@ ExtendedKeyUpdate TLS handshake message with new_key_update message subtype MUST
 
 After sending an ExtendedKeyUpdate with key_update_response message subtype, the responder derives new packet protection traffic secrets. The responder MUST continue using the previous secrets until it has received a packet with the Key Phase bit flipped and has successfully decrypted it using the new keys.
 
-After receiving and succesfully processing an ExtendedKeyUpdate with key_update_response message subtype, the initiator derives new packet protection traffic secrets, flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator MUST retain the old read secret until it has received a packet with a flipped Key Phase bit from the responder and succesfully decrypted it using the new read secret.
+After receiving and successfully processing an ExtendedKeyUpdate with key_update_response message subtype, the initiator derives new packet protection traffic secrets, flips the Key Phase bit for new packets, and uses the new write secret to protect them. The initiator MUST retain the old read secret until it has received a packet with a flipped Key Phase bit from the responder and successfully decrypted it using the new read secret.
 
-Both endpoints SHOULD retain old read secrets for some time after unprotecting a packet encrypted with the new keys. Discarding old secret too early may
-cause delayed packets to be discarded, which the peer may interpreted as packet loss, potentially impacting performance.
-
-Both endpoints SHOULD retain old read secrets for some time after successfully decrypting a packet encrypted with the new keys. Discarding old secrets too early may cause delayed packets to be discarded, which the peer may interpret as packet loss, potentially impacting performance. However, implementations may choose to discard old secrets sooner in environments where memory limitations or security policies require minimizing the lifetime of old keys. The retention period should be chosen carefully to mitigate the risk of cryptographic attacks while still allowing late-arriving packets to be processed.
+Both endpoints SHOULD retain old read secrets for some time after successfully decrypting a packet encrypted with the new keys. Discarding old secrets too early may cause delayed packets to be discarded, which the peer may be interpreted as packet loss, potentially impacting performance. However, implementations may choose to discard old secrets sooner in environments where memory limitations or security policies require minimizing the lifetime of old keys. The retention period should be chosen carefully to mitigate the risk of cryptographic attacks while still allowing late-arriving packets to be processed.
 
 {{fig-extended-key-update}} shows this interaction graphically where the initial set of keys used (identified with @M) are replaced by updated keys (identified with @N). The value of the Key Phase bit is indicated in brackets [].
 
@@ -176,3 +171,4 @@ This document has no IANA actions.
 {:numbered="false"}
 
 We would like to thank Martin Thomson and Sean Turner for their early review of this design and their invaluable feedback.
+
