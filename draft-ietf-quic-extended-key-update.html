@@ -1363,7 +1363,7 @@ set the "Extended_Key_Update" flag.<a href="#section-3-1" class="pilcrow">¶</a>
 </div>
 <p id="section-5-6">QUIC endpoints that have agreed to the Extended Key Update process <span class="bcp14">MUST NOT</span> change the Key Phase bit without a succesful exchange of
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a successful Extended Key Update exchange <span class="bcp14">MUST</span> be treated as
-a connection error of type KEY_UPDATE_ERROR (0x0e).<a href="#section-5-6" class="pilcrow">¶</a></p>
+a connection error of type KEY_UPDATE_ERROR (0x0e), as defined in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-20.1" class="relref">Section 20.1</a> of [<a href="#QUIC" class="cite xref">QUIC</a>]</span>.<a href="#section-5-6" class="pilcrow">¶</a></p>
 <p id="section-5-7">Key derivation function for computing the next generation of secrets is described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-7" class="relref">Section 7</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>. The corresponding key and IV are derived from the new secret as defined in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.1" class="relref">Section 5.1</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>. The header protection key is not updated.<a href="#section-5-7" class="pilcrow">¶</a></p>
 </section>
 </div>
