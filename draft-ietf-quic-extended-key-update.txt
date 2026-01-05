@@ -207,30 +207,24 @@ Table of Contents
    received a packet with the Key Phase bit flipped and has successfully
    decrypted it using the new keys.
 
-   After receiving and succesfully processing an ExtendedKeyUpdate with
+   After receiving and successfully processing an ExtendedKeyUpdate with
    key_update_response message subtype, the initiator derives new packet
    protection traffic secrets, flips the Key Phase bit for new packets,
    and uses the new write secret to protect them.  The initiator MUST
    retain the old read secret until it has received a packet with a
-   flipped Key Phase bit from the responder and succesfully decrypted it
-   using the new read secret.
-
-   Both endpoints SHOULD retain old read secrets for some time after
-   unprotecting a packet encrypted with the new keys.  Discarding old
-   secret too early may cause delayed packets to be discarded, which the
-   peer may interpreted as packet loss, potentially impacting
-   performance.
+   flipped Key Phase bit from the responder and successfully decrypted
+   it using the new read secret.
 
    Both endpoints SHOULD retain old read secrets for some time after
    successfully decrypting a packet encrypted with the new keys.
    Discarding old secrets too early may cause delayed packets to be
-   discarded, which the peer may interpret as packet loss, potentially
-   impacting performance.  However, implementations may choose to
-   discard old secrets sooner in environments where memory limitations
-   or security policies require minimizing the lifetime of old keys.
-   The retention period should be chosen carefully to mitigate the risk
-   of cryptographic attacks while still allowing late-arriving packets
-   to be processed.
+   discarded, which the peer may be interpreted as packet loss,
+   potentially impacting performance.  However, implementations may
+   choose to discard old secrets sooner in environments where memory
+   limitations or security policies require minimizing the lifetime of
+   old keys.  The retention period should be chosen carefully to
+   mitigate the risk of cryptographic attacks while still allowing late-
+   arriving packets to be processed.
 
    Figure 1 shows this interaction graphically where the initial set of
    keys used (identified with @M) are replaced by updated keys
@@ -269,8 +263,9 @@ Table of Contents
    QUIC endpoints that have agreed to the Extended Key Update process
    MUST NOT change the Key Phase bit without a succesful exchange of
    Extended Key Update TLS messages.  Receiving a packet with the Key
-   Phase bit changed without a success Extended Key Update exchange MUST
-   be treated as a connection error of type KEY_UPDATE_ERROR (0x0e).
+   Phase bit changed without a successful Extended Key Update exchange
+   MUST be treated as a connection error of type KEY_UPDATE_ERROR
+   (0x0e).
 
    Key derivation function for computing the next generation of secrets
    is described in Section 7 of [TLS-EKU].  The corresponding key and IV
