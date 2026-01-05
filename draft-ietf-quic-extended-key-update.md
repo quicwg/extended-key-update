@@ -91,9 +91,7 @@ QUIC peers negotiate Extended Key Update through the TLS handshake process, as o
 Extended Key Update MUST NOT be used unless both QUIC peers include the TLS flags extension {{!TLS-FLAGS=I-D.ietf-tls-tlsflags}} in the handshake and
 set the "Extended_Key_Update" flag.
 
-Once the Extended Key Update has been successfully negotiated, QUIC peers MUST use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from {{Section 6 of QUIC-TLS}} MUST NOT be used for the duration of the session, as both
-Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and
-toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages.
+Once the Extended Key Update has been successfully negotiated, QUIC peers MUST use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from {{Section 6 of QUIC-TLS}} MUST NOT be used for the duration of the session, as both Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages. The Key Phase bit MUST only be changed as a result of a successful Extended Key Update exchange.
 
 # Extended Key Update Messages
 
