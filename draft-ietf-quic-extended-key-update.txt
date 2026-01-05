@@ -154,7 +154,9 @@ Table of Contents
    Key Update and Extended Key Update use the Key Phase bit to signal
    the use of updated keys.  The Key Phase bit is initially set to 0 and
    toggled to indicate a key update following the successful post-
-   handshake exchange of Extended Key Update messages.
+   handshake exchange of Extended Key Update messages.  The Key Phase
+   bit MUST only be changed as a result of a successful Extended Key
+   Update exchange.
 
 4.  Extended Key Update Messages
 
