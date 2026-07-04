@@ -17,24 +17,25 @@ involving long-lived connections.
        This specification replaces the QUIC Key Update mechanism described in the "Using TLS to
 Secure QUIC" specification. 
     ' name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
+<meta content="xml2rfc 3.34.0" name="generator">
 <meta content="quic" name="keyword">
 <meta content="extended key update" name="keyword">
 <meta content="forward secrecy" name="keyword">
 <meta content="draft-ietf-quic-extended-key-update-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
-    Python 3.12.12
-    ConfigArgParse 1.7
+  xml2rfc 3.34.0
+    Python 3.14.5
+    ConfigArgParse 1.7.5
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.5.1
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.10.0
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.2.14
+    requests 2.33.1
+    wcwidth 0.8.2
 -->
 <link href="draft-ietf-quic-extended-key-update.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -175,7 +176,7 @@ Secure QUIC" specification.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -183,7 +184,8 @@ Secure QUIC" specification.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -300,16 +302,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -329,10 +334,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -343,59 +348,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -433,26 +438,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -468,20 +472,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -517,9 +523,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -529,17 +535,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -575,6 +583,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -588,25 +597,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -626,13 +627,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -643,18 +637,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -713,9 +705,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -805,23 +797,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -832,19 +828,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -865,54 +863,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -931,26 +929,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -966,12 +964,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1033,17 +1032,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1053,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Extended Key Update for QUIC</td>
-<td class="right">January 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Rosomakho, et al.</td>
-<td class="center">Expires 9 July 2026</td>
+<td class="center">Expires 5 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc9001" class="eref">9001</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-01-05" class="published">5 January 2026</time>
+<time datetime="2026-07-04" class="published">4 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-07-09">9 July 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-05">5 January 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1142,7 +1143,7 @@ Secure QUIC" specification.<a href="#section-abstract-2" class="pilcrow">¶</a><
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 July 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1247,7 +1248,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-extended-key-update-negotia">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-extended-key-update-negotia" class="section-name selfRef">Extended Key Update Negotiation</a>
       </h2>
-<p id="section-3-1">QUIC peers negotiate Extended Key Update through the TLS handshake process, as outlined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-3" class="relref">Section 3</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>.
+<p id="section-3-1">QUIC peers negotiate Extended Key Update through the TLS handshake process, as outlined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13#section-3" class="relref">Section 3</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>.
 Extended Key Update <span class="bcp14">MUST NOT</span> be used unless both QUIC peers include the TLS flags extension <span>[<a href="#TLS-FLAGS" class="cite xref">TLS-FLAGS</a>]</span> in the handshake and
 set the "Extended_Key_Update" flag.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Once the Extended Key Update has been successfully negotiated, QUIC peers <span class="bcp14">MUST</span> use only the Extended Key Update process defined in this document. The standard QUIC Key Update mechanism from <span><a href="https://rfc-editor.org/rfc/rfc9001#section-6" class="relref">Section 6</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span> <span class="bcp14">MUST NOT</span> be used for the duration of the session, as both Key Update and Extended Key Update use the Key Phase bit to signal the use of updated keys. The Key Phase bit is initially set to 0 and toggled to indicate a key update following the successful post-handshake exchange of Extended Key Update messages. The Key Phase bit <span class="bcp14">MUST</span> only be changed as a result of a successful Extended Key Update exchange.<a href="#section-3-2" class="pilcrow">¶</a></p>
@@ -1258,8 +1259,8 @@ set the "Extended_Key_Update" flag.<a href="#section-3-1" class="pilcrow">¶</a>
       <h2 id="name-extended-key-update-message">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-extended-key-update-message" class="section-name selfRef">Extended Key Update Messages</a>
       </h2>
-<p id="section-4-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-4" class="relref">Section 4</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>, either party <span class="bcp14">MAY</span> initiate the Extended Key Update process by sending an ExtendedKeyUpdate TLS handshake message with key_update_request message subtype in a QUIC CRYPTO frame. This message <span class="bcp14">MUST NOT</span> be sent before the QUIC handshake is confirmed, as described in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>. If a QUIC endpoint receives an ExtendedKeyUpdate message before the handshake is complete, it <span class="bcp14">MUST</span> terminate the connection with an error of type 0x010a, equivalent to the TLS unexpected_message alert, as specified in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.8" class="relref">Section 4.8</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">If both QUIC peers independently initiate an Extended Key Update and their ExtendedKeyUpdate messages cross in flight, the conflict <span class="bcp14">MUST</span> be resolved following the clash error handling defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-4" class="relref">Section 4</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>. Specifically, the lexicographic order of the key_exchange value in the KeyShareEntry determines which request is dropped, ensuring a coordinated key update process without advancing by two key generations.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-1">As specified in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13#section-4" class="relref">Section 4</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>, either party <span class="bcp14">MAY</span> initiate the Extended Key Update process by sending an ExtendedKeyUpdate TLS handshake message with key_update_request message subtype in a QUIC CRYPTO frame. This message <span class="bcp14">MUST NOT</span> be sent before the QUIC handshake is confirmed, as described in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.1.2" class="relref">Section 4.1.2</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>. If a QUIC endpoint receives an ExtendedKeyUpdate message before the handshake is complete, it <span class="bcp14">MUST</span> terminate the connection with an error of type 0x010a, equivalent to the TLS unexpected_message alert, as specified in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.8" class="relref">Section 4.8</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">If both QUIC peers independently initiate an Extended Key Update and their ExtendedKeyUpdate messages cross in flight, the conflict <span class="bcp14">MUST</span> be resolved following the clash error handling defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13#section-4" class="relref">Section 4</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>. Specifically, the lexicographic order of the key_exchange value in the KeyShareEntry determines which request is dropped, ensuring a coordinated key update process without advancing by two key generations.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">Upon receiving an ExtendedKeyUpdate with key_update_request, the recipient <span class="bcp14">MUST</span> respond with an ExtendedKeyUpdate TLS handshake message with key_update_response message subtype within a QUIC CRYPTO frame. If a QUIC endpoint receives an ExtendedKeyUpdate with key_update_response message subtype without having previously sent an ExtendedKeyUpdate with key_update_request message subtype, it <span class="bcp14">MUST</span> treat this as a TLS protocol error and terminate the connection with an error of type 0x010a, equivalent to the TLS unexpected_message alert, as specified in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.8" class="relref">Section 4.8</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>.<a href="#section-4-3" class="pilcrow">¶</a></p>
 <p id="section-4-4">Any mismatch between the negotiated NamedGroup during the initial handshake and the group used in the ExtendedKeyUpdate message, or an incorrect length of the encapsulated key <span class="bcp14">MUST</span> result in connection termination with error of type 0x012f, equivalent to TLS illegal_parameter alert.<a href="#section-4-4" class="pilcrow">¶</a></p>
 <p id="section-4-5">ExtendedKeyUpdate TLS handshake message with new_key_update message subtype <span class="bcp14">MUST NOT</span> be used in QUIC. If a QUIC endpoint receives an ExtendedKeyUpdate message with new_key_update message subtype, it <span class="bcp14">MUST</span> terminate the connection with an error of type 0x010a, equivalent to the TLS unexpected_message alert, as specified in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-4.8" class="relref">Section 4.8</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>.<a href="#section-4-5" class="pilcrow">¶</a></p>
@@ -1364,7 +1365,7 @@ set the "Extended_Key_Update" flag.<a href="#section-3-1" class="pilcrow">¶</a>
 <p id="section-5-6">QUIC endpoints that have agreed to the Extended Key Update process <span class="bcp14">MUST NOT</span> change the Key Phase bit without a succesful exchange of
 Extended Key Update TLS messages. Receiving a packet with the Key Phase bit changed without a successful Extended Key Update exchange <span class="bcp14">MUST</span> be treated as
 a connection error of type KEY_UPDATE_ERROR (0x0e), as defined in <span><a href="https://rfc-editor.org/rfc/rfc9000#section-20.1" class="relref">Section 20.1</a> of [<a href="#QUIC" class="cite xref">QUIC</a>]</span>.<a href="#section-5-6" class="pilcrow">¶</a></p>
-<p id="section-5-7">Key derivation function for computing the next generation of secrets is described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-7" class="relref">Section 7</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>. The corresponding key and IV are derived from the new secret as defined in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.1" class="relref">Section 5.1</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>. The header protection key is not updated.<a href="#section-5-7" class="pilcrow">¶</a></p>
+<p id="section-5-7">Key derivation function for computing the next generation of secrets is described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13#section-7" class="relref">Section 7</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span>. The corresponding key and IV are derived from the new secret as defined in <span><a href="https://rfc-editor.org/rfc/rfc9001#section-5.1" class="relref">Section 5.1</a> of [<a href="#QUIC-TLS" class="cite xref">QUIC-TLS</a>]</span>. The header protection key is not updated.<a href="#section-5-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1372,7 +1373,7 @@ a connection error of type KEY_UPDATE_ERROR (0x0e), as defined in <span><a href=
       <h2 id="name-security-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">All Security Considerations defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07#section-11" class="relref">Section 11</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span> apply to Extended Key Update for QUIC.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">All Security Considerations defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13#section-11" class="relref">Section 11</a> of [<a href="#TLS-EKU" class="cite xref">TLS-EKU</a>]</span> apply to Extended Key Update for QUIC.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">This specification describes an update to the key schedule of QUIC. Therefore, implementations <span class="bcp14">MUST</span> ensure that peers adhere strictly to the process
 described in this document. Packets with higher packet numbers <span class="bcp14">MUST NOT</span> be protected using an older generation of secrets, as this could compromise key
 synchronization and forward security.<a href="#section-6-2" class="pilcrow">¶</a></p>
@@ -1415,11 +1416,11 @@ synchronization and forward security.<a href="#section-6-2" class="pilcrow">¶</
 <dd class="break"></dd>
 <dt id="TLS-EKU">[TLS-EKU]</dt>
         <dd>
-<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Tüxen, M.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Fries, S.</span>, and <span class="refAuthor">Y. Rosomakho</span>, <span class="refTitle">"Extended Key Update for Transport Layer Security (TLS) 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-extended-key-update-07</span>, <time datetime="2025-11-01" class="refDate">1 November 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07">https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-07</a>&gt;</span>. </dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Tüxen, M.</span>, <span class="refAuthor">Reddy.K, T.</span>, <span class="refAuthor">Fries, S.</span>, and <span class="refAuthor">Y. Rosomakho</span>, <span class="refTitle">"Extended Key Update for Transport Layer Security (TLS) 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-extended-key-update-13</span>, <time datetime="2026-07-04" class="refDate">4 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13">https://datatracker.ietf.org/doc/html/draft-ietf-tls-extended-key-update-13</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="TLS-FLAGS">[TLS-FLAGS]</dt>
       <dd>
-<span class="refAuthor">Nir, Y.</span>, <span class="refTitle">"A Flags Extension for TLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-tlsflags-16</span>, <time datetime="2025-09-14" class="refDate">14 September 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-16">https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-16</a>&gt;</span>. </dd>
+<span class="refAuthor">Nir, Y.</span>, <span class="refTitle">"A Flags Extension for TLS 1.3"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-tls-tlsflags-17</span>, <time datetime="2026-03-17" class="refDate">17 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-17">https://datatracker.ietf.org/doc/html/draft-ietf-tls-tlsflags-17</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

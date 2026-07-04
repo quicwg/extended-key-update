@@ -6,9 +6,9 @@ QUIC                                                        Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Updates: 9001 (if approved)                                H. Tschofenig
 Intended status: Standards Track                                   H-BRS
-Expires: 9 July 2026                                            T. Reddy
+Expires: 5 January 2027                                         T. Reddy
                                                                    Nokia
-                                                          5 January 2026
+                                                             4 July 2026
 
 
                       Extended Key Update for QUIC
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 July 2026.
+   This Internet-Draft will expire on 5 January 2027.
 
 Copyright Notice
 
@@ -314,15 +314,15 @@ Table of Contents
    [TLS-EKU]  Tschofenig, H., Tüxen, M., Reddy.K, T., Fries, S., and Y.
               Rosomakho, "Extended Key Update for Transport Layer
               Security (TLS) 1.3", Work in Progress, Internet-Draft,
-              draft-ietf-tls-extended-key-update-07, 1 November 2025,
+              draft-ietf-tls-extended-key-update-13, 4 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              extended-key-update-07>.
+              extended-key-update-13>.
 
    [TLS-FLAGS]
               Nir, Y., "A Flags Extension for TLS 1.3", Work in
-              Progress, Internet-Draft, draft-ietf-tls-tlsflags-16, 14
-              September 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-tls-tlsflags-16>.
+              Progress, Internet-Draft, draft-ietf-tls-tlsflags-17, 17
+              March 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-tls-tlsflags-17>.
 
 8.2.  Informative References
 
