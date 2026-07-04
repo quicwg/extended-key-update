@@ -5,7 +5,7 @@
 QUIC                                                        Y. Rosomakho
 Internet-Draft                                                   Zscaler
 Updates: 9001 (if approved)                                H. Tschofenig
-Intended status: Standards Track                                   H-BRS
+Intended status: Standards Track                                UniBw M.
 Expires: 5 January 2027                                         T. Reddy
                                                                    Nokia
                                                              4 July 2026
@@ -354,9 +354,10 @@ Authors' Addresses
 
 
    Hannes Tschofenig
-   University of Applied Sciences Bonn-Rhein-Sieg
+   University of the Bundeswehr Munich
+   85577 Neubiberg
    Germany
-   Email: Hannes.Tschofenig@gmx.net
+   Email: hannes.tschofenig@gmx.net
 
 
    Tirumaleswar Reddy
