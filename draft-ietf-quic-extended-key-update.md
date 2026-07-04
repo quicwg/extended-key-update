@@ -32,12 +32,16 @@ author:
     email: yrosomakho@zscaler.com
  -
     ins: H. Tschofenig
-    name: Hannes Tschofenig
-    abbrev: H-BRS
-    organization: University of Applied Sciences Bonn-Rhein-Sieg
+    fullname: Hannes Tschofenig
+    organization: University of the Bundeswehr Munich
+    abbrev: UniBw M.
+    city: Neubiberg
+    region: Bavaria
     country: Germany
-    email: Hannes.Tschofenig@gmx.net
+    code: 85577
+    email: hannes.tschofenig@gmx.net
  -
+    ins: T. Reddy
     fullname: Tirumaleswar Reddy
     organization: Nokia
     city: Bangalore
